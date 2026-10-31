@@ -7,7 +7,7 @@ e-Transfer** (no money moves through the app: that's regulated in Canada). An op
 checklist score reaches the bar the poster set (e.g. $20 + $10 at 80%). Built on [Anvil](https://anvil.works), Montréal first.
 
 - **App repo:** github.com/arkulinskis/service-request (branch `master`). Anvil pulls `master`.
-- **Live:** not published yet.
+- **Live:** https://service-request.anvil.app
 - **Design:** "hi-vis bounty board": safety-vest yellow `#ffd400` on near-black, warm paper `#f4f2ec`, Archivo Black + Archivo,
   thick outlines, hard offset shadows, hazard stripes, tear-off price tags, rubber-stamp statuses. Light and dark.
 
