@@ -1751,14 +1751,37 @@
     ]
   };
 
-  function heroArt() {
-    var t = function (base, bonus, bar) { return SR.tag({ base: base, bonus: bonus, bar: bar }); };
-    return '<div class="lp-board" aria-hidden="true"><span class="ttl">BOUNTY BOARD</span>' +
-      '<div class="lp-post p1">' + SR.ti('leaves', 'sm') + '<h4>Rake &amp; bag the front yard</h4><p>NDG · Saturday morning</p>' + t(20, 10, 80) + '</div>' +
-      '<div class="lp-post p2">' + SR.ti('driveway', 'sm') + '<h4>Shovel my driveway</h4><p>Rosemont · first snowfall</p>' + t(35, 10, 80) + '</div>' +
-      '<div class="lp-post p3">' + SR.ti('ecocentre', 'sm') + '<h4>Couch to the eco-centre</h4><p>Hochelaga · needs a truck</p>' + t(70, 15, 90) + '</div>' +
-      '<div class="lp-post p4"><span class="sr-stamp done">Paid</span><b style="font-size:.8rem">Quality score</b><div class="mtr"><i></i><b></b></div><p style="display:block">4 of 5 done: bonus unlocked</p></div>' +
-      '<div class="lp-sticker">+$10<br>BONUS</div></div>';
+  // The hero map: a made-up Montréal block (the street grid tilts like the real one), a park, the river,
+  // and bounty pins from the real task catalogue. Pins sit right of the card on desktop, across the top on phones.
+  function heroArt(CAT) {
+    var streets = '', i;
+    for (i = -6; i < 22; i++) streets += '<path d="M' + (i * 110) + ' -200 L' + (i * 110 + 520) + ' 900"/>';
+    for (i = -4; i < 14; i++) streets += '<path d="M-300 ' + (i * 86) + ' L1600 ' + (i * 86 - 300) + '"/>';
+    var map = '<div class="lp-map" aria-hidden="true"><svg viewBox="0 0 1280 640" preserveAspectRatio="xMidYMid slice">' +
+      '<rect width="1280" height="640" fill="var(--land)"/>' +
+      '<path d="M1280 470 C1120 520 1010 560 900 640 L1280 640 Z" fill="var(--water)"/>' +
+      '<path d="M760 120 L930 60 L990 190 L820 250 Z" fill="var(--park)"/>' +
+      '<path d="M1080 300 L1180 262 L1214 350 L1112 388 Z" fill="var(--park)"/>' +
+      '<g stroke="var(--casing)" stroke-width="16" fill="none">' + streets + '</g>' +
+      '<g stroke="var(--street)" stroke-width="11" fill="none">' + streets + '</g>' +
+      '<path d="M560 -40 L1340 520" stroke="var(--casing)" stroke-width="26" fill="none"/><path d="M560 -40 L1340 520" stroke="var(--street)" stroke-width="20" fill="none"/>' +
+      '<g fill="var(--label)" font-family="inherit" font-size="13" font-weight="700" letter-spacing="2">' +
+        '<text x="820" y="168" transform="rotate(-20 820 168)">PARC</text>' +
+        '<text x="1010" y="600" transform="rotate(-14 1010 600)">FLEUVE</text>' +
+        '<text x="980" y="300" transform="rotate(35.6 980 300)">BOUL. SAINT-LAURENT</text></g>' +
+      '</svg></div>';
+    var tasks = [], seen = {};
+    ((CAT && CAT.tasks) || []).forEach(function (t) { if (!seen[t.cat] && tasks.length < 7) { seen[t.cat] = 1; tasks.push(t); } });
+    var spots = [[58, 30], [72, 22], [86, 36], [66, 58], [80, 66], [92, 54], [74, 86]];
+    var pins = tasks.map(function (t, n) {
+      var p = (t.prices && t.prices[0]) || 20;
+      return '<div class="lp-pin' + (n === 3 ? ' hot' : '') + '" style="left:' + spots[n][0] + '%;top:' + spots[n][1] + '%;animation-delay:' + (n * 0.12) + 's">' +
+        SR.ti(t.key, 'sm') + SR.tag({ base: p, bonus: n % 2 ? 10 : 0, bar: 80 }, 'sm') + '</div>';
+    }).join('');
+    var pop = tasks[3] ? '<div class="lp-pop" style="left:66%;top:58%"><b>' + UI.esc(tasks[3].name) + '</b>Rosemont · about 400 m away' +
+      '<div class="ui-row">' + SR.tag({ base: (tasks[3].prices || [35])[0], bonus: 10, bar: 80 }, 'sm') + '<span class="muted">3 offers</span></div></div>' : '';
+    return map + '<div class="lp-pins" aria-hidden="true"><span class="lp-you" style="left:76%;top:48%"></span>' + pins + pop + '</div>' +
+      '<span class="lp-legend" aria-hidden="true">Bounties near you, right now</span>';
   }
 
   UI.page('landing', { title: 'Neighbourhood bounties' }, function (view, ctx) {
@@ -1768,9 +1791,9 @@
         : '<a class="ui-btn primary lg" href="#auth/signup" data-go="auth/signup">' + UI.icon('plus') + 'Post a bounty, free</a>' +
           '<a class="ui-btn lg" href="#board" data-go="board">' + UI.icon('search') + 'Browse bounties</a>';
       view.innerHTML =
-        '<section class="lp-hero"><div class="ui-wrap"><div><span class="eyebrow">' + esc(C.eyebrow) + '</span><h1>' + C.title + '</h1><p class="lp-lead">' + esc(C.lead) + '</p>' +
+        '<section class="lp-hero">' + heroArt(CAT) + '<div class="ui-wrap"><div class="lp-card"><span class="eyebrow">' + esc(C.eyebrow) + '</span><h1>' + C.title + '</h1><p class="lp-lead">' + esc(C.lead) + '</p>' +
           '<div class="lp-cta">' + primary + '</div>' +
-          '<div class="lp-proof">' + C.proof.map(function (p) { return '<span>' + UI.icon('check') + esc(p) + '</span>'; }).join('') + '</div></div>' + heroArt() + '</div></section>' +
+          '<div class="lp-proof">' + C.proof.map(function (p) { return '<span>' + UI.icon('check') + esc(p) + '</span>'; }).join('') + '</div></div></div></section>' +
 
         '<section class="lp-section" id="how"><div class="ui-wrap"><div class="lp-head"><h2>Two sides, one board</h2><p>Post what you need, or earn by helping out around the block.</p></div><div class="lp-sides">' +
           '<div class="ui-card lp-side"><h3>' + UI.icon('tag') + 'If you need a hand</h3><ol>' +
