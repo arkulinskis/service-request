@@ -730,7 +730,7 @@ metadata:
   title: 'Service Request: post a bounty, get help from a neighbour'
 name: Service Request
 native_deps:
-  head_html: "<script src=\"_/theme/legal-kit.js?v=f8fd6e77bc\"></script>\n<!-- seo:start (APP_MAKER/seo: edit seo/apps/servicerequest.json\
+  head_html: "<script src=\"_/theme/legal-kit.js?v=0f24beb2c0\"></script>\n<!-- seo:start (APP_MAKER/seo: edit seo/apps/servicerequest.json\
     \ and run seo.py, not here) -->\n<link rel=\"canonical\" href=\"https://service-request.anvil.app/\">\n<meta name=\"robots\"\
     \ content=\"index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1\">\n<meta name=\"keywords\" content=\"\
     odd jobs near me, neighbourhood help, snow shovelling help, leaf raking service, junk removal near me, TaskRabbit alternative,\
