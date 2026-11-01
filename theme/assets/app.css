@@ -597,38 +597,38 @@ html.ui-dark .jb-row { border-width: 1.5px; }
 
 /* ===== landing.html ===== */
 .page-landing .ui-main { overflow-x: clip; }
-.lp-hero { position: relative; padding: 56px 0 40px; }
-.lp-hero .ui-wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr .98fr; gap: 44px; align-items: center; padding-top: 0; padding-bottom: 0; }
-.lp-hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.1rem); line-height: 1; margin: 16px 0 18px; }
+/* Map hero: the neighbourhood is the background, bounties are pins on it, the pitch sits in a card */
+.lp-hero { position: relative; overflow: hidden; border-bottom: 3px solid var(--c-edge); min-height: 600px; display: flex; align-items: center; padding: 48px 0; }
+.lp-map { position: absolute; inset: 0; z-index: 0; --land: #ebe7da; --street: #ffffff; --casing: #d6d0bd; --park: #cfe0b2; --water: #b7d4e6; --label: #8a836f; }
+html.ui-dark .lp-map { --land: #1a1a19; --street: #2e2d2a; --casing: #3b3a35; --park: #23301f; --water: #152636; --label: #77736a; }
+.lp-map svg { width: 100%; height: 100%; display: block; }
+.lp-hero .ui-wrap { position: relative; z-index: 2; width: 100%; padding-top: 0; padding-bottom: 0; pointer-events: none; }
+.lp-card { pointer-events: auto; max-width: 560px; background: var(--c-surface); border: 3px solid var(--c-edge); border-radius: 14px; box-shadow: var(--shadow-lg); padding: 30px 30px 26px; }
+.lp-hero h1 { font-size: clamp(2.2rem, 4.8vw, 3.6rem); line-height: 1; margin: 16px 0 16px; }
 .lp-hero h1 em { font-style: normal; background: var(--c-accent); color: #111; padding: 0 .12em; box-shadow: 4px 4px 0 var(--c-edge); display: inline-block; transform: rotate(-1.5deg); }
-.lp-lead { font-size: 1.18rem; color: var(--c-muted); max-width: 34em; margin-bottom: 26px; }
+.lp-lead { font-size: 1.08rem; color: var(--c-muted); max-width: 34em; margin-bottom: 22px; }
 .lp-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-.lp-proof { margin-top: 22px; display: flex; gap: 10px 18px; flex-wrap: wrap; color: var(--c-muted); font-size: .92rem; font-weight: 700; }
+.lp-proof { margin-top: 18px; display: flex; gap: 8px 16px; flex-wrap: wrap; color: var(--c-muted); font-size: .88rem; font-weight: 700; }
 .lp-proof span { display: inline-flex; gap: 6px; align-items: center; }
 .lp-proof .ui-ic { color: var(--c-good); }
-/* the hero board */
-.lp-board { position: relative; aspect-ratio: 1 / .95; border: 3px solid var(--c-edge); border-radius: 14px; box-shadow: var(--shadow-lg); overflow: hidden;
-  background: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, .18) 1.2px, transparent 1.3px) 0 0 / 18px 18px, #d9b98a; }
-html.ui-dark .lp-board { background: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, .12) 1.2px, transparent 1.3px) 0 0 / 18px 18px, #3a2f22; }
-.lp-board::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 18px; background: repeating-linear-gradient(-45deg, #ffd400 0 16px, #111 16px 32px); border-bottom: 3px solid #111; z-index: 2; }
-.lp-board .ttl { position: absolute; top: 30px; left: 50%; transform: translateX(-50%) rotate(-1deg); background: #111; color: #ffd400; font: 400 1.05rem/1 var(--font-display);
-  padding: 8px 14px; border-radius: 4px; letter-spacing: .06em; white-space: nowrap; z-index: 2; }
-.lp-post { position: absolute; background: #fffdf6; color: #111; border: 2px solid #111; border-radius: 6px; padding: 14px 14px 12px; box-shadow: 4px 4px 0 rgba(0, 0, 0, .55); width: 46%; }
-.lp-post::before { content: ""; position: absolute; top: -9px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: #e03131; border: 2px solid #111; box-shadow: 1px 2px 0 #111; }
-.lp-post h4 { margin: 8px 0 4px; font: 800 .98rem/1.2 var(--font-body); color: #111; }
-.lp-post p { margin: 0; font-size: .74rem; color: #555; }
-.lp-post .sr-tag { margin-top: 10px; transform: rotate(-3deg); }
-.lp-post .sr-tag::before { background: #fffdf6; }
-.lp-post.p1 { left: 5%; top: 20%; transform: rotate(-4deg); }
-.lp-post.p2 { right: 5%; top: 16%; transform: rotate(3deg); }
-.lp-post.p3 { left: 12%; bottom: 6%; transform: rotate(2deg); }
-.lp-post.p4 { right: 6%; bottom: 10%; transform: rotate(-3deg); width: 40%; }
-.lp-post .sr-stamp { position: absolute; right: 10px; top: 10px; transform: rotate(8deg); background: transparent; }
-.lp-post .mtr { height: 14px; border: 2px solid #111; border-radius: 4px; background: #eee; position: relative; margin: 10px 0 4px; }
-.lp-post .mtr i { position: absolute; inset: 0 20% 0 0; background: repeating-linear-gradient(-45deg, #ffd400 0 8px, #f2c600 8px 16px); border-right: 2px solid #111; }
-.lp-post .mtr b { position: absolute; left: 80%; top: -6px; bottom: -6px; border-left: 3px dashed #111; }
-.lp-sticker { position: absolute; z-index: 3; background: #111; color: #ffd400; font: 400 .9rem/1.05 var(--font-display); padding: 12px; border-radius: 50%; width: 92px; height: 92px;
-  display: grid; place-items: center; text-align: center; border: 3px solid #ffd400; box-shadow: 0 0 0 3px #111; right: 38%; top: 47%; transform: rotate(-12deg); }
+/* pins */
+.lp-pins { position: absolute; inset: 0; z-index: 1; }
+.lp-pin { position: absolute; transform: translate(-50%, -100%); display: grid; justify-items: center; gap: 4px; animation: lp-pin-in .5s cubic-bezier(.3, 1.4, .5, 1) both; }
+.lp-pin .sr-ti { box-shadow: 2px 2px 0 #111; }
+.lp-pin::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #111; border: 2px solid var(--c-accent); }
+.lp-pin .sr-tag { pointer-events: none; }
+.lp-pin.hot .sr-ti { animation: lp-bob 2.2s ease-in-out infinite; }
+@keyframes lp-pin-in { from { opacity: 0; transform: translate(-50%, -140%); } }
+@keyframes lp-bob { 50% { transform: translateY(-6px); } }
+.lp-you { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #2f6fed; border: 3px solid #fff; box-shadow: 0 0 0 2px #111; }
+.lp-you::before { content: ""; position: absolute; left: 50%; top: 50%; width: 230px; height: 230px; margin: -115px 0 0 -115px; border-radius: 50%;
+  border: 2px dashed #2f6fed; background: rgba(47, 111, 237, .08); animation: lp-radar 3s ease-out infinite; }
+@keyframes lp-radar { 0% { transform: scale(.35); opacity: 1; } 100% { transform: scale(1); opacity: .35; } }
+.lp-pop { position: absolute; transform: translate(-50%, calc(-100% - 70px)); background: #fffdf6; color: #111; border: 2px solid #111; border-radius: 8px; padding: 10px 12px; box-shadow: 4px 4px 0 #111;
+  min-width: 190px; font-size: .78rem; }
+.lp-pop b { display: block; font-size: .92rem; margin-bottom: 2px; }
+.lp-pop .ui-row { margin-top: 6px; gap: 6px; }
+.lp-legend { position: absolute; right: 18px; bottom: 14px; z-index: 2; font: 800 .72rem/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; background: #111; color: #ffd400; padding: 7px 10px; border-radius: 6px; }
 /* sections */
 .lp-section { padding: 52px 0; }
 .lp-section .ui-wrap { padding-top: 0; padding-bottom: 0; }
@@ -681,9 +681,10 @@ html.ui-dark .lp-shield { background: #000; }
 .lp-band p { margin: 0; }
 .lp-band .ui-btn { background: #111; color: #ffd400; border-color: #111; }
 @media (max-width: 900px) {
-  .lp-hero { padding-top: 30px; }
-  .lp-hero .ui-wrap { grid-template-columns: 1fr; gap: 30px; }
-  .lp-board { max-width: 500px; width: 100%; margin: 0 auto; }
+  .lp-hero { display: block; min-height: 0; padding: 300px 0 28px; }
+  .lp-map, .lp-pins { bottom: auto; height: 340px; }
+  .lp-card { padding: 22px 18px; }
+  .lp-pop, .lp-legend { display: none; }
   .lp-sides, .lp-bonus { grid-template-columns: 1fr; }
   .lp-feats { grid-template-columns: 1fr 1fr; }
   .lp-band { padding: 28px 22px; }
@@ -691,11 +692,9 @@ html.ui-dark .lp-shield { background: #000; }
 }
 @media (max-width: 560px) {
   .lp-feats { grid-template-columns: 1fr; }
-  .lp-post { padding: 10px 10px 9px; }
-  .lp-post h4 { font-size: .82rem; } .lp-post p { display: none; }
-  .lp-post .sr-tag b { font-size: 1rem; }
-  .lp-sticker { width: 70px; height: 70px; font-size: .72rem; }
+  .lp-pin .sr-tag { display: none; }
 }
+@media (prefers-reduced-motion: reduce) { .lp-pin, .lp-pin.hot .sr-ti, .lp-you::before { animation: none; } }
 
 /* ===== ledger.html ===== */
 .lg-tot { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
