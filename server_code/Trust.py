@@ -132,7 +132,7 @@ def is_new(user, role):
 def can_post(user):
     """None if this person may post (or hire) now, else the reason why not."""
     if paused(user):
-        return "Your account is paused after reports, so you can't post or hire right now. Write to us through Send feedback."
+        return "Your account is paused after reports, so you can't post or hire right now. Write to us through Submit feedback."
     if overdue(user):
         return "You have a bounty to pay first: it was validated more than 3 days ago. Settle it in My jobs, then post again."
     live = len([b for b in app_tables.bounties.search(poster=user) if b["status"] in LIVE_STATUSES])
@@ -150,7 +150,7 @@ def active_jobs(user):
 def can_help(user):
     """None if this person may take on another job, else the reason why not."""
     if paused(user):
-        return "Your account is paused after reports, so you can't make offers right now. Write to us through Send feedback."
+        return "Your account is paused after reports, so you can't make offers right now. Write to us through Submit feedback."
     cap = NEW_ACTIVE if is_new(user, "helper") else ACTIVE
     if len(active_jobs(user)) >= cap:
         return ("New helpers can have %d jobs on the go. Finish one first." % NEW_ACTIVE if cap == NEW_ACTIVE
