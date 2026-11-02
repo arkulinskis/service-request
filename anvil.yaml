@@ -730,7 +730,7 @@ metadata:
   title: 'Service Request: post a bounty, get help from a neighbour'
 name: Service Request
 native_deps:
-  head_html: "<script src=\"_/theme/legal-kit.js?v=0f24beb2c0\"></script>\n<!-- seo:start (APP_MAKER/seo: edit seo/apps/servicerequest.json\
+  head_html: "<script src=\"_/theme/legal-kit.js?v=e717d8618d\"></script>\n<!-- seo:start (APP_MAKER/seo: edit seo/apps/servicerequest.json\
     \ and run seo.py, not here) -->\n<link rel=\"canonical\" href=\"https://service-request.anvil.app/\">\n<meta name=\"robots\"\
     \ content=\"index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1\">\n<meta name=\"keywords\" content=\"\
     odd jobs near me, neighbourhood help, snow shovelling help, leaf raking service, junk removal near me, TaskRabbit alternative,\
@@ -774,7 +774,7 @@ native_deps:
     })();\n</script>\n\n<!-- Prepsto feedback panel: every \"Submit feedback\" link and button opens it (it is the only feedback\
     \ channel). No floating button, no cookies, nothing loads until it is opened. Codes: APP_MAKER/prepsto-links.json -->\n\
     <script src=\"https://prepsto.com/_/theme/widget.js\" data-prepsto=\"u2cum5r\" data-button=\"false\" data-label=\"Submit\
-    \ feedback\" async></script>\n<link rel=\"stylesheet\" href=\"_/theme/app.css?v=37b5e3216d\">\n<script src=\"_/theme/app.js?v=fbff583d84\"\
+    \ feedback\" async></script>\n<link rel=\"stylesheet\" href=\"_/theme/app.css?v=b2b5ec1823\">\n<script src=\"_/theme/app.js?v=b2e69ff9e9\"\
     ></script>\n"
 package_name: Service_Request
 runtime_options:
@@ -795,9 +795,13 @@ services:
     remember_me_days: 30
     require_secure_passwords: true
     use_email: true
+    use_google: true
   server_config:
     user_table: users
   source: /runtime/services/anvil/users.yml
+- client_config: {}
+  server_config: {}
+  source: /runtime/services/google.yml
 startup:
   module: Main
   type: form
