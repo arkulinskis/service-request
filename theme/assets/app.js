@@ -1748,6 +1748,21 @@
 })();
 
 /* ===== landing.html ===== */
+// Watch section: swap the video's cover for YouTube's player (privacy-enhanced) only when it's pressed.
+  if (!window.__ytFilm) {
+    window.__ytFilm = true;
+    document.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-yt-film]') : null;
+      if (!b) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + b.getAttribute('data-yt-film') + '?autoplay=1&rel=0&playsinline=1';
+      f.title = b.getAttribute('data-yt-title') || 'Video';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      b.parentNode.replaceChild(f, b);
+    });
+  }
 (function () {
   var COPY = {
     eyebrow: 'Leaves · Snow · Junk · 40 neighbourly jobs',
@@ -1810,6 +1825,7 @@
           '<div class="lp-cta">' + primary + '</div>' +
           '<div class="lp-proof">' + C.proof.map(function (p) { return '<span>' + UI.icon('check') + esc(p) + '</span>'; }).join('') + '</div></div></div></section>' +
 
+        '<section class="lp-section ytf" id="watch"><div class="ui-wrap"><div class="ytf-in"><div class="ytf-copy"><div class="eyebrow"><svg viewBox="0 0 28 20" width="20" height="14" aria-hidden="true"><rect width="28" height="20" rx="5" fill="#FF0033"/><path d="M11.2 5.8v8.4l7.3-4.2z" fill="#fff"/></svg>Watch</div><h2>See Service Request in about a minute</h2><p>A short video tour of what Service Request does and how it works.</p><a class="ytf-link" href="https://www.youtube.com/watch?v=_Qj7nniw9cw" target="_blank" rel="noopener">Watch on YouTube &#8599;</a></div><div><div class="ytf-frame"><button type="button" class="ytf-cover" data-yt-film="_Qj7nniw9cw" data-yt-title="Service Request video" aria-label="Play the Service Request video (1:12)"><img src="_/theme/yt-cover.jpg" alt="" loading="lazy" decoding="async" width="960" height="540"><span class="ytf-play" aria-hidden="true"><svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.3.3 34 .3 34 .3s-21.3 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6c5.2 1.4 26.5 1.4 26.5 1.4s21.3 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#FF0033"/><path d="M45 24 27 14v20z" fill="#fff"/></svg></span><span class="ytf-len">1:12</span></button></div><p class="ytf-note">The video loads from YouTube when you press play.</p></div></div></div></section>' +
         '<section class="lp-section" id="how"><div class="ui-wrap"><div class="lp-head"><h2>Two sides, one board</h2><p>Post what you need, or earn by helping out around the block.</p></div><div class="lp-sides">' +
           '<div class="ui-card lp-side"><h3>' + UI.icon('tag') + 'If you need a hand</h3><ol>' +
             '<li><span><b>Post a bounty</b><span>Pick from 40 jobs, add photos, set a price from $20 and an optional quality bonus.</span></span></li>' +
