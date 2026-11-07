@@ -1,0 +1,100 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap ad-page">
+      <div class="ui-page-head"><div><h1>Admin</h1><p class="muted">Only admins see this page.</p></div></div>
+      <nav class="ui-tabs" aria-label="Admin">
+        <a href="#admin/overview" anvil:name="tab_overview"><i class="ic ic-grid"></i>Overview</a>
+        <a href="#admin/queue" anvil:name="tab_queue"><i class="ic ic-flag"></i>Review queue</a>
+        <a href="#admin/safety" anvil:name="tab_safety"><i class="ic ic-shield"></i>Trust &amp; safety</a>
+        <a href="#admin/bounties" anvil:name="tab_bounties"><i class="ic ic-tag"></i>Bounties</a>
+        <a href="#admin/feedback" anvil:name="tab_feedback"><i class="ic ic-inbox"></i>Feedback</a>
+        <a href="#admin/users" anvil:name="tab_users"><i class="ic ic-users"></i>Users</a>
+        <a href="#admin/demo" anvil:name="tab_demo"><i class="ic ic-database"></i>Demo data</a>
+      </nav>
+
+      <div anvil:name="overview_part">
+        <div class="ad-stats">
+          <a class="ui-card ui-stat ad-stat" href="#admin/queue"><b anvil:dom-node="s_review"></b><span>waiting for review</span></a>
+          <a class="ui-card ui-stat ad-stat" href="#admin/safety"><b anvil:dom-node="s_disputes"></b><span>disputes · open reports</span></a>
+          <a class="ui-card ui-stat ad-stat" href="#admin/bounties"><b anvil:dom-node="s_open"></b><span>open bounties</span></a>
+          <a class="ui-card ui-stat ad-stat" href="#admin/bounties"><b anvil:dom-node="s_way"></b><span>jobs under way</span></a>
+          <a class="ui-card ui-stat ad-stat" href="#admin/bounties"><b anvil:dom-node="s_pay"></b><span>payments pending</span></a>
+          <a class="ui-card ui-stat ad-stat" href="#admin/bounties"><b anvil:dom-node="s_done"></b><span>jobs done</span></a>
+          <a class="ui-card ui-stat ad-stat" href="#admin/bounties"><b anvil:dom-node="s_settled"></b><span>settled (real jobs)</span></a>
+          <a class="ui-card ui-stat ad-stat" href="#admin/users"><b anvil:dom-node="s_users"></b><span>people signed up</span></a>
+          <a class="ui-card ui-stat ad-stat" href="#admin/feedback"><b anvil:dom-node="s_feedback"></b><span>new feedback</span></a>
+        </div>
+        <p class="muted small ad-demo-line" anvil:dom-node="demo_line"></p>
+      </div>
+
+      <div anvil:name="queue_part">
+        <p class="muted">New bounties the scanner flagged (scam words, unsafe or licensed work, "another task", big amounts from new accounts), and bounties reported by 3 neighbours.</p>
+        <anvil-component type="RepeatingPanel" name="queue_panel" prop:item_template="Service_Request.Items.AdminBounty" prop:role='["ad-q"]'></anvil-component>
+        <div class="ui-empty" anvil:name="queue_empty"><i class="ic ic-check"></i><h2>Queue is empty</h2><p>Nothing waiting for review.</p></div>
+      </div>
+
+      <div anvil:name="safety_part">
+        <h2 class="ad-h" anvil:dom-node="h_disputes">Disputes</h2>
+        <anvil-component type="RepeatingPanel" name="disputes_panel" prop:item_template="Service_Request.Items.AdminBounty" prop:role='["ad-q"]'></anvil-component>
+        <p class="muted" anvil:dom-node="no_disputes">No open disputes.</p>
+        <h2 class="ad-h" anvil:dom-node="h_reports">Open reports</h2>
+        <anvil-component type="RepeatingPanel" name="reports_panel" prop:item_template="Service_Request.Items.ReportRow" prop:role='["ad-q"]'></anvil-component>
+        <p class="muted" anvil:dom-node="no_reports">No open reports.</p>
+        <h2 class="ad-h" anvil:dom-node="h_people">People with strikes</h2>
+        <div class="ad-table ad-strikes-head" anvil:name="strikes_head"><b>Name</b><b>Email</b><b>Strikes</b><b>Paused</b><b></b></div>
+        <anvil-component type="RepeatingPanel" name="people_panel" prop:item_template="Service_Request.Items.StrikeRow"></anvil-component>
+        <p class="muted" anvil:dom-node="no_people">Nobody has a strike.</p>
+        <h2 class="ad-h" anvil:dom-node="h_handled">Handled reports</h2>
+        <anvil-component type="RepeatingPanel" name="handled_panel" prop:item_template="Service_Request.Items.ReportRow" prop:role='["ad-q"]'></anvil-component>
+      </div>
+
+      <div anvil:name="bounties_part">
+        <div class="ui-row ad-filter">
+          <anvil-component type="DropDown" name="status_box"></anvil-component>
+          <span class="muted small" anvil:dom-node="bounties_count"></span>
+        </div>
+        <anvil-component type="RepeatingPanel" name="bounties_panel" prop:item_template="Service_Request.Items.AdminBounty" prop:role='["ad-q"]'></anvil-component>
+        <div class="ui-empty" anvil:name="bounties_empty"><i class="ic ic-tag"></i><h2>No bounties</h2></div>
+      </div>
+
+      <div anvil:name="feedback_part">
+        <div class="ui-row ad-filter">
+          <div class="ui-seg" role="group" aria-label="Show">
+            <button type="button" data-f="new" anvil:name="f_new" anvil:on-dom:click="self.fb_filter_click">New</button>
+            <button type="button" data-f="read" anvil:name="f_read" anvil:on-dom:click="self.fb_filter_click">Read</button>
+            <button type="button" data-f="done" anvil:name="f_done" anvil:on-dom:click="self.fb_filter_click">Done</button>
+            <button type="button" data-f="all" anvil:name="f_all" anvil:on-dom:click="self.fb_filter_click">All</button>
+          </div>
+        </div>
+        <anvil-component type="RepeatingPanel" name="feedback_panel" prop:item_template="Service_Request.Items.FeedbackRow" prop:role='["ad-fb"]'></anvil-component>
+        <div class="ui-empty" anvil:name="no_feedback">
+          <i class="ic ic-inbox"></i>
+          <h2>No messages here</h2>
+          <p>New feedback goes to Prepsto (prepsto.com). Older messages and requests from the app show up here.</p>
+        </div>
+      </div>
+
+      <div anvil:name="users_part">
+        <div class="ui-row ad-search">
+          <anvil-component type="TextBox" name="search_box" prop:placeholder="Search by name or email" prop:role='["ad-search-box"]'></anvil-component>
+          <anvil-component type="Button" name="search_button" prop:text="Search" prop:role='["btn", "ic-search"]'></anvil-component>
+          <anvil-component type="Label" name="users_count" prop:role='["fine-print"]'></anvil-component>
+        </div>
+        <div class="ad-table ad-users-head"><b>Name</b><b>Email</b><b>Joined</b><b>Admin</b><b>Active</b></div>
+        <anvil-component type="RepeatingPanel" name="users_panel" prop:item_template="Service_Request.Items.UserRow"></anvil-component>
+      </div>
+
+      <div anvil:name="demo_part">
+        <div class="ui-card ui-narrow ad-demo">
+          <h2 class="ad-card-h">Demo data</h2>
+          <p class="muted">Example people and content, so the app never looks empty for the first visitors. Demo rows are flagged, so removing them never touches real data. Once removed, it stays removed until you load it again.</p>
+          <anvil-component type="Label" name="demo_status"></anvil-component>
+          <div class="ui-row">
+            <anvil-component type="Button" name="demo_load_button" prop:text="Load demo data" prop:role='["btn", "btn-primary", "ic-refresh"]'></anvil-component>
+            <anvil-component type="Button" name="demo_remove_button" prop:text="Remove demo data" prop:role='["btn", "btn-danger", "ic-trash"]'></anvil-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

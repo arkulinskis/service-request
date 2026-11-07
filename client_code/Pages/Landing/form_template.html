@@ -1,0 +1,138 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="lp-page">
+      <section class="lp-hero">
+        <div class="lp-art" anvil:dom-node="art"></div>
+        <div class="ui-wrap">
+          <div class="lp-card">
+            <h1>Post a bounty. <em>A neighbour</em> gets it done.</h1>
+            <p class="lp-lead">Need the leaves raked, the driveway shovelled or an old couch gone? Put a price on it (from $20) and people nearby send offers. Pay cash or by Interac e-Transfer once the work checks out, with a bonus for great work.</p>
+            <div class="lp-cta" anvil:name="guest_cta">
+              <a class="ui-btn primary lg" href="#auth/signup"><i class="ic ic-plus"></i>Post a bounty, free</a>
+              <a class="ui-btn lg" href="#board"><i class="ic ic-search"></i>Browse bounties</a>
+            </div>
+            <div class="lp-cta" anvil:name="member_cta">
+              <a class="ui-btn primary lg" href="#board">Open the board <i class="ic ic-arrow"></i></a>
+              <a class="ui-btn lg" href="#post"><i class="ic ic-plus"></i>Post a bounty</a>
+            </div>
+            <div class="lp-proof">
+              <span><i class="ic ic-check"></i>From $20</span><span><i class="ic ic-check"></i>No fees, no middleman</span>
+              <span><i class="ic ic-check"></i>Photo proof + quality score</span><span><i class="ic ic-check"></i>Built against scams</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section ytf" id="watch">
+        <div class="ui-wrap">
+          <div class="ytf-in">
+            <div class="ytf-copy">
+              <h2>See Service Request in about a minute</h2>
+              <p>A short video tour of what Service Request does and how it works.</p>
+              <a class="ytf-link" href="https://www.youtube.com/watch?v=_Qj7nniw9cw" target="_blank" rel="noopener"><svg viewBox="0 0 28 20" width="20" height="14" aria-hidden="true"><rect width="28" height="20" rx="5" fill="#FF0033"/><path d="M11.2 5.8v8.4l7.3-4.2z" fill="#fff"/></svg>Watch on YouTube &#8599;</a>
+            </div>
+            <div>
+              <div class="ytf-frame" anvil:dom-node="yt_frame">
+                <button type="button" class="ytf-cover" anvil:dom-node="yt_cover" aria-label="Play the Service Request video (1:12)">
+                  <img src="_/theme/yt-cover.jpg" alt="" loading="lazy" decoding="async" width="960" height="540">
+                  <span class="ytf-play" aria-hidden="true"><svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.3.3 34 .3 34 .3s-21.3 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6c5.2 1.4 26.5 1.4 26.5 1.4s21.3 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#FF0033"/><path d="M45 24 27 14v20z" fill="#fff"/></svg></span>
+                  <span class="ytf-len">1:12</span>
+                </button>
+              </div>
+              <p class="ytf-note">The video loads from YouTube when you press play.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section" id="how">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>Two sides, one board</h2><p>Post what you need, or earn by helping out around the block.</p></div>
+          <div class="lp-sides">
+            <div class="ui-card lp-side"><h3><i class="ic ic-tag"></i>If you need a hand</h3><ol>
+              <li><span><b>Post a bounty</b><span>Pick from 40 jobs, add photos, set a price from $20 and an optional quality bonus.</span></span></li>
+              <li><span><b>Pick a helper</b><span>Compare offers, ratings and how often they win the bonus. Only they get your address.</span></span></li>
+              <li><span><b>Check the proof</b><span>They send photos. You tick the checklist: that's the quality score.</span></span></li>
+              <li><span><b>Pay directly</b><span>Cash or e-Transfer, the exact amount. Their e-Transfer email appears only now.</span></span></li></ol></div>
+            <div class="ui-card lp-side helper"><h3><i class="ic ic-hand"></i>If you want to earn</h3><ol>
+              <li><span><b>Browse the board</b><span>Bounties on a map near you, by distance, price or date. Filter for bonus jobs.</span></span></li>
+              <li><span><b>Send an offer</b><span>Say when you can come. Bigger job than described? Counter-offer.</span></span></li>
+              <li><span><b>Do it well, snap it</b><span>Tick your checklist and send photos. No answer in 48 h? Your checklist counts.</span></span></li>
+              <li><span><b>Get paid, get rated</b><span>Cash or e-Transfer. Build a record, earn badges like Snow warrior and Leaf legend.</span></span></li></ol></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="ui-card lp-bonus">
+            <div>
+              <h2>The quality bonus: great work pays more. Fairly.</h2>
+              <p class="muted">Every bounty has a checklist anyone can check. The share of ticked items is the score. Set a bonus and a bar, and great helpers go for it.</p>
+              <div class="lp-math">$20 bounty + <mark>$10 at 80%</mark></div>
+              <p class="small muted lp-tight">Unticking an item needs a written reason. Every poster's profile shows how often they pay the bonus.</p>
+            </div>
+            <div>
+              <ul class="lp-check">
+                <li class="y"><i aria-hidden="true"><span class="ic ic-check"></span></i>Lawn raked clear of leaves</li>
+                <li class="y"><i aria-hidden="true"><span class="ic ic-check"></span></i>Garden beds cleared</li>
+                <li class="y"><i aria-hidden="true"><span class="ic ic-check"></span></i>Leaves bagged in paper yard bags</li>
+                <li class="y"><i aria-hidden="true"><span class="ic ic-check"></span></i>Bags placed at the curb</li>
+                <li class="n"><i aria-hidden="true"><span class="ic ic-x"></span></i>Walkway and steps swept</li>
+              </ul>
+              <p class="lp-result">4 of 5 = 80% → the helper gets <span class="lp-total">$30</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-shield">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>Built against scams and no-pays</h2><p>Cash jobs attract tricksters. Here's what stops them.</p></div>
+          <div class="lp-feats">
+            <div class="ui-card lp-feat"><i class="ic ic-flag"></i><h3>A scanner reads every bounty</h3><p>Gift cards, crypto, cheques, "send the rest back", packages for strangers, roofs, wiring: flagged for a moderator before reaching the board.</p></div>
+            <div class="ui-card lp-feat"><i class="ic ic-eyeoff"></i><h3>Contact details hidden</h3><p>Phone numbers, emails and links are blanked out until you're matched, so scammers can't pull you off the app.</p></div>
+            <div class="ui-card lp-feat"><i class="ic ic-bolt"></i><h3>Pay within 3 days</h3><p>Once a job is validated, the poster can't post or hire again until they pay. Their pay record is public.</p></div>
+            <div class="ui-card lp-feat"><i class="ic ic-ruler"></i><h3>Checklists, not vibes</h3><p>The score is what's ticked, with reasons for anything missed. No answer in 48 h? The helper's checklist counts.</p></div>
+            <div class="ui-card lp-feat"><i class="ic ic-shield"></i><h3>Strikes and disputes</h3><p>Moderators settle disputes. Upheld reports are strikes; three pause the account. Three reports pull a bounty off the board.</p></div>
+            <div class="ui-card lp-feat"><i class="ic ic-star"></i><h3>Reputation you can't fake</h3><p>Records come from finished jobs only. Reviews are blind until both sides write them, and each neighbour counts once.</p></div>
+          </div>
+          <p class="lp-shield-cta"><a class="ui-btn primary" href="#rules"><i class="ic ic-shield"></i>Read the rules &amp; safety guide</a></p>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>40 jobs that need no degree</h2><p>Each with a suggested price and a ready-made checklist. Tap one to post it.</p></div>
+          <div class="lp-wall">
+            <anvil-component type="RepeatingPanel" name="wall_panel" prop:item_template="Service_Request.Items.WallLink" prop:role='["contents"]'></anvil-component>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>Questions</h2></div>
+          <div class="lp-faq">
+            <details><summary>How much does it cost?</summary><p>Nothing. No fees for posting, no cut of the bounty. You pay your helper directly, in cash or by Interac e-Transfer.</p></details>
+            <details><summary>Why not pay in the app?</summary><p>Moving other people's money is regulated in Canada. Until a licensed payment partner is plugged in, you pay each other directly and the app keeps the record: amounts, references, dates.</p></details>
+            <details><summary>How is the quality bonus decided?</summary><p>With a checklist you write when you post (we suggest one for every task). You tick what was done; the share of ticked items is the score. If you offered "$10 at 80%", 4 of 5 items unlocks it. Unticking needs a reason the helper can read.</p></details>
+            <details><summary>What if they don't pay?</summary><p>Once a job is validated, the poster has 3 days to pay. Until they do, they can't post or hire. Helpers can open a dispute; a moderator decides, and a lost dispute is a strike. Three strikes pause the account. Every poster's profile shows how fast they pay.</p></details>
+            <details><summary>Who sees my address?</summary><p>Only the helper you pick, once you pick them. The board shows a neighbourhood name and a circle about 500 m wide.</p></details>
+            <details><summary>Can teenagers help?</summary><p>Yes, from 16. Shovelling and raking are classic first jobs. We ask anyone under 18 to get a parent's OK and to stick to outdoor jobs.</p></details>
+            <details><summary>What jobs aren't allowed?</summary><p>Anything that needs a licence (electrical, plumbing, gas, roofing, tree felling), childcare and rides, hazardous waste, buying things with the helper's money, gift cards and packages for strangers. A scanner sends anything risky to a moderator first.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-band">
+            <div><h2>Got a job that needs doing?</h2><p>Post it in two minutes. The neighbours are ready.</p></div>
+            <a class="ui-btn lg" href="#auth/signup" anvil:name="band_link"><i class="ic ic-plus"></i><span anvil:dom-node="band_text">Join free</span></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </anvil-block>
+</anvil-form>

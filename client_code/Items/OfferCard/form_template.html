@@ -1,0 +1,15 @@
+<div class="bt-offer" anvil:dom-node="card">
+  <div class="ui-row between top">
+    <a class="bt-who" anvil:dom-node="who"><span class="ui-avatar" anvil:dom-node="av"></span><span><b anvil:dom-node="name"></b><span class="small muted" anvil:dom-node="rec"></span></span></a>
+    <span anvil:dom-node="tag"></span>
+  </div>
+  <span class="ui-badge warn bt-counter" anvil:dom-node="counter"></span>
+  <p class="msg" anvil:dom-node="msg"></p>
+  <p class="small bt-when" anvil:dom-node="when"><i class="ic ic-calendar"></i> <b anvil:dom-node="when_t"></b></p>
+  <anvil-component type="RepeatingPanel" name="skills_panel" prop:item_template="Service_Request.Items.Badge" prop:role='["sr-badges", "bt-skills"]'></anvil-component>
+  <div class="ui-row" anvil:name="acts">
+    <anvil-component type="Button" name="pick_button" prop:text="Pick" prop:role='["btn", "btn-primary", "ic-check"]'></anvil-component>
+    <anvil-component type="Button" name="decline_button" prop:text="Decline" prop:role='["btn", "btn-ghost"]'></anvil-component>
+  </div>
+  <span class="ui-badge" anvil:dom-node="status"></span>
+</div>

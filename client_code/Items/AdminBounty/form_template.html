@@ -1,0 +1,30 @@
+<div class="ui-item ad-b">
+  <div class="ui-row between top">
+    <div class="ad-b-title"><b anvil:dom-node="title"></b> <span anvil:dom-node="stamp"></span> <span class="ui-badge" anvil:dom-node="demo">Demo</span></div>
+    <span anvil:dom-node="tag"></span>
+  </div>
+  <anvil-component type="RepeatingPanel" name="flags_panel" prop:item_template="Service_Request.Items.Badge" prop:role='["sr-badges", "ad-flags"]'></anvil-component>
+  <p class="det" anvil:dom-node="details"></p>
+  <div class="ui-note small ad-dispute" anvil:dom-node="dispute"><b anvil:dom-node="dispute_by"></b> <span anvil:dom-node="dispute_text"></span></div>
+  <div class="meta">
+    <span><i class="ic ic-user"></i><span anvil:dom-node="poster"></span></span>
+    <span anvil:dom-node="helper"></span>
+    <span anvil:dom-node="quality"></span>
+    <span anvil:dom-node="owed"></span>
+    <span anvil:dom-node="where"></span>
+    <a anvil:dom-node="open">Open</a>
+  </div>
+  <div class="ui-row ad-acts" anvil:name="queue_acts">
+    <anvil-component type="Button" name="approve_button" prop:text="Approve" prop:role='["btn", "btn-sm", "btn-primary", "ic-check"]'></anvil-component>
+    <anvil-component type="Button" name="reject_button" prop:text="Reject" prop:role='["btn", "btn-sm", "btn-danger", "ic-x"]'></anvil-component>
+  </div>
+  <div class="ui-row ad-acts" anvil:name="dispute_acts">
+    <anvil-component type="DropDown" name="outcome_box"></anvil-component>
+    <anvil-component type="DropDown" name="strike_box"></anvil-component>
+    <anvil-component type="TextBox" name="note_box" prop:placeholder="Note for both sides" prop:role='["ad-note"]'></anvil-component>
+    <anvil-component type="Button" name="settle_button" prop:text="Settle" prop:role='["btn", "btn-sm", "btn-primary"]'></anvil-component>
+  </div>
+  <div class="ui-row ad-acts" anvil:name="all_acts">
+    <anvil-component type="Button" name="remove_button" prop:text="Remove" prop:role='["btn", "btn-sm", "btn-danger", "ic-trash"]'></anvil-component>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="ui sr-dlg">
+  <h2 class="dlg-h"><i class="ic ic-flag"></i> <span anvil:dom-node="title">Report this</span></h2>
+  <p class="muted">A moderator reads every report. Three reports take a bounty off the board until it's checked.</p>
+  <div class="ui-stack">
+    <div class="ui-choices" role="radiogroup" aria-label="What's wrong?" anvil:dom-node="kinds">
+      <label class="ui-choice"><input type="radio" name="sr-kind" value="scam" checked><span>Looks like a scam</span></label>
+      <label class="ui-choice"><input type="radio" name="sr-kind" value="unsafe"><span>Unsafe or not allowed</span></label>
+      <label class="ui-choice"><input type="radio" name="sr-kind" value="not_paid"><span>Didn't pay</span></label>
+      <label class="ui-choice"><input type="radio" name="sr-kind" value="no_show"><span>Didn't show up</span></label>
+      <label class="ui-choice"><input type="radio" name="sr-kind" value="rude"><span>Rude or harassing</span></label>
+      <label class="ui-choice"><input type="radio" name="sr-kind" value="fake"><span>Fake bounty or profile</span></label>
+      <label class="ui-choice"><input type="radio" name="sr-kind" value="other"><span>Something else</span></label>
+    </div>
+    <label class="ui-field"><span>What happened?</span><anvil-component type="TextArea" name="text_box" prop:placeholder="Facts help: what was said or asked, when."></anvil-component></label>
+    <anvil-component type="Label" name="error_label" prop:role='["msg-error"]' prop:visible="false"></anvil-component>
+    <div class="ui-row end">
+      <anvil-component type="Button" name="cancel_button" prop:text="Cancel" prop:role='["btn", "btn-ghost"]'></anvil-component>
+      <anvil-component type="Button" name="send_button" prop:text="Send report" prop:role='["btn", "btn-primary", "ic-flag"]'></anvil-component>
+    </div>
+  </div>
+</div>

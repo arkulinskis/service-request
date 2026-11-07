@@ -1,0 +1,43 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap nb-page">
+      <div class="ui-narrow" anvil:name="missing_box">
+        <div class="ui-empty"><i class="ic ic-user"></i><h2>Neighbour not found</h2><p anvil:dom-node="missing_p"></p><a class="ui-btn" href="#board">Back to the board</a></div>
+      </div>
+      <div anvil:name="body">
+        <div class="nb-head">
+          <span class="ui-avatar" anvil:dom-node="av"></span>
+          <div><h1 anvil:dom-node="name"></h1>
+            <div class="sub">
+              <span anvil:dom-node="area_box"><i class="ic ic-pin"></i><span anvil:dom-node="area"></span></span>
+              <span><i class="ic ic-calendar"></i><span anvil:dom-node="since"></span></span>
+              <span class="ui-badge good" anvil:dom-node="good"><i class="ic ic-shield"></i>Good standing</span>
+              <span class="ui-badge warn" anvil:dom-node="warned"><i class="ic ic-info"></i>Has a moderator warning</span>
+            </div>
+          </div>
+          <div class="ui-row">
+            <a class="ui-btn" href="#profile" anvil:name="edit_link"><i class="ic ic-edit"></i>Edit my profile</a>
+            <anvil-component type="Button" name="report_button" prop:text="Report" prop:role='["btn", "btn-ghost", "btn-sm", "ic-flag"]'></anvil-component>
+          </div>
+        </div>
+        <anvil-component type="RepeatingPanel" name="stats_panel" prop:item_template="Service_Request.Items.StatCard" prop:role='["nb-stats"]'></anvil-component>
+        <div class="nb-grid">
+          <div class="nb-col">
+            <div class="ui-card" anvil:name="bio_box"><h2 class="nb-h">About</h2><p class="nb-bio" anvil:dom-node="bio"></p>
+              <anvil-component type="RepeatingPanel" name="skills_panel" prop:item_template="Service_Request.Items.Badge" prop:role='["sr-badges", "nb-skills"]'></anvil-component></div>
+            <div class="ui-card" anvil:name="badges_box"><h2 class="nb-h">Badges</h2>
+              <anvil-component type="RepeatingPanel" name="badges_panel" prop:item_template="Service_Request.Items.NbBadge" prop:role='["nb-badges"]'></anvil-component></div>
+            <div class="ui-card"><h2 class="nb-h">Reviews <span class="ui-badge" anvil:dom-node="rev_count"></span></h2>
+              <anvil-component type="RepeatingPanel" name="reviews_panel" prop:item_template="Service_Request.Items.ReviewRow" prop:role='["nb-revs"]'></anvil-component>
+              <p class="muted nb-norev" anvil:dom-node="no_reviews">No reviews yet. Reviews appear once both sides have reviewed a job (or a week after it closed).</p></div>
+          </div>
+          <div class="nb-col">
+            <div class="ui-card" anvil:name="open_box"><h2 class="nb-h">Open bounties</h2>
+              <anvil-component type="RepeatingPanel" name="open_panel" prop:item_template="Service_Request.Items.MiniBounty" prop:role='["nb-open"]'></anvil-component></div>
+            <div class="ui-card flat"><h2 class="nb-h4"><i class="ic ic-shield"></i> How records work</h2><p class="small muted nb-tight">Numbers come from finished bounties only: nobody can type them in. Each neighbour counts once in a rating, and reviews stay blind until both sides have written theirs.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

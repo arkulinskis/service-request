@@ -1,0 +1,34 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap jb-page">
+      <div class="ui-page-head">
+        <div><h1>My jobs</h1><p class="muted">What you posted, what you're doing, and what needs you.</p></div>
+        <a class="ui-btn primary" href="#post"><i class="ic ic-plus"></i>Post a bounty</a>
+      </div>
+      <anvil-component type="Label" name="limit_note" prop:role='["msg-note", "jb-limit"]' prop:visible="false"></anvil-component>
+      <div class="jb-sum">
+        <div class="ui-card"><b anvil:dom-node="n_todo">0</b><span>need you</span></div>
+        <div class="ui-card"><b anvil:dom-node="n_posted">0</b><span>live bounties</span></div>
+        <div class="ui-card"><b anvil:dom-node="n_doing">0</b><span>jobs on the go</span></div>
+        <a class="ui-card jb-money" href="#ledger"><b anvil:dom-node="owed">$0</b><span anvil:dom-node="owed_sub">coming to you</span></a>
+      </div>
+      <nav class="ui-tabs" aria-label="My jobs">
+        <a href="#jobs/todo" anvil:name="tab_todo"><i class="ic ic-bell"></i>To do <span class="count" anvil:dom-node="c_todo"></span></a>
+        <a href="#jobs/posted" anvil:name="tab_posted"><i class="ic ic-tag"></i>Posted <span class="count" anvil:dom-node="c_posted"></span></a>
+        <a href="#jobs/doing" anvil:name="tab_doing"><i class="ic ic-hand"></i>Doing <span class="count" anvil:dom-node="c_doing"></span></a>
+        <a href="#jobs/offers" anvil:name="tab_offers"><i class="ic ic-send"></i>Offers sent <span class="count" anvil:dom-node="c_offers"></span></a>
+      </nav>
+      <h2 class="jb-group" anvil:dom-node="group1">In progress</h2>
+      <anvil-component type="RepeatingPanel" name="list1" prop:item_template="Service_Request.Items.JobRow" prop:role='["jb-list"]'></anvil-component>
+      <h2 class="jb-group" anvil:dom-node="group2">Finished and closed</h2>
+      <anvil-component type="RepeatingPanel" name="list2" prop:item_template="Service_Request.Items.JobRow" prop:role='["jb-list"]'></anvil-component>
+      <div class="ui-empty" anvil:name="empty_box">
+        <i class="ic" anvil:dom-node="empty_ic"></i><h2 anvil:dom-node="empty_h"></h2><p anvil:dom-node="empty_p"></p>
+        <div class="ui-row jb-empty-acts">
+          <a class="ui-btn primary" anvil:dom-node="empty_a1"></a>
+          <a class="ui-btn" anvil:dom-node="empty_a2"></a>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

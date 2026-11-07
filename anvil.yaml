@@ -730,52 +730,57 @@ metadata:
   title: 'Service Request: post a bounty, get help from a neighbour'
 name: Service Request
 native_deps:
-  head_html: "<script src=\"_/theme/legal-kit.js?v=4614c66368\"></script>\n<!-- seo:start (APP_MAKER/seo: edit seo/apps/servicerequest.json\
-    \ and run seo.py, not here) -->\n<link rel=\"canonical\" href=\"https://service-request.anvil.app/\">\n<meta name=\"robots\"\
-    \ content=\"index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1\">\n<meta name=\"keywords\" content=\"\
-    odd jobs near me, neighbourhood help, snow shovelling help, leaf raking service, junk removal near me, TaskRabbit alternative,\
-    \ small jobs Montreal, e-Transfer jobs, local helpers\">\n<meta name=\"author\" content=\"Arkvital\">\n<meta property=\"\
-    og:type\" content=\"website\">\n<meta property=\"og:site_name\" content=\"Service Request\">\n<meta property=\"og:title\"\
-    \ content=\"Service Request: post a bounty, get help from a neighbour\">\n<meta property=\"og:description\" content=\"\
-    Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac\
-    \ e-Transfer, with a quality bonus.\">\n<meta property=\"og:locale\" content=\"en_CA\">\n<meta property=\"og:url\" content=\"\
-    https://service-request.anvil.app/\">\n<meta property=\"og:image\" content=\"https://service-request.anvil.app/_/theme/og-image.png\"\
-    >\n<meta property=\"og:image:width\" content=\"1200\"><meta property=\"og:image:height\" content=\"630\">\n<meta property=\"\
-    og:image:alt\" content=\"Service Request: Post a bounty, get help from a neighbour. Paid in cash or e-Transfer.\">\n<meta\
-    \ name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Service Request: post\
-    \ a bounty, get help from a neighbour\">\n<meta name=\"twitter:description\" content=\"Post a bounty and get help from\
-    \ a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality\
-    \ bonus.\">\n<meta name=\"twitter:image\" content=\"https://service-request.anvil.app/_/theme/og-image.png\">\n<link rel=\"\
-    alternate\" type=\"text/plain\" title=\"Service Request for AI assistants\" href=\"https://service-request.anvil.app/llms.txt\"\
-    >\n<script type=\"application/ld+json\">{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"WebApplication\"\
-    , \"@id\": \"https://service-request.anvil.app/#app\", \"name\": \"Service Request\", \"url\": \"https://service-request.anvil.app/\"\
-    , \"description\": \"Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20.\
-    \ Pay in cash or Interac e-Transfer, with a quality bonus.\", \"image\": \"https://service-request.anvil.app/_/theme/og-image.png\"\
-    , \"inLanguage\": \"en\", \"publisher\": {\"@id\": \"https://arkvital.com/#org\"}, \"keywords\": \"odd jobs near me, neighbourhood\
-    \ help, snow shovelling help, leaf raking service, junk removal near me, TaskRabbit alternative, small jobs Montreal,\
-    \ e-Transfer jobs, local helpers\", \"applicationCategory\": \"LifestyleApplication\", \"operatingSystem\": \"Any (web\
-    \ browser)\", \"browserRequirements\": \"Requires JavaScript and a modern web browser\", \"featureList\": [\"40 kinds\
-    \ of neighbourly jobs, from $20\", \"A bounty board with a map of price-tag pins\", \"Offers from nearby helpers; the\
-    \ poster chooses\", \"Photo proof and a weighted quality checklist\", \"An optional quality bonus\", \"Paid directly in\
-    \ cash or Interac e-Transfer\"], \"audience\": {\"@type\": \"Audience\", \"audienceType\": \"Neighbours who need small\
-    \ jobs done, and neighbours who want to earn\"}}, {\"@type\": \"WebSite\", \"@id\": \"https://service-request.anvil.app/#site\"\
-    , \"url\": \"https://service-request.anvil.app/\", \"name\": \"Service Request\", \"publisher\": {\"@id\": \"https://arkvital.com/#org\"\
-    }}, {\"@type\": \"Organization\", \"@id\": \"https://arkvital.com/#org\", \"name\": \"Arkvital\", \"url\": \"https://arkvital.com\"\
-    , \"email\": \"arkvital@outlook.com\", \"address\": {\"@type\": \"PostalAddress\", \"addressLocality\": \"Montreal\",\
-    \ \"addressRegion\": \"QC\", \"addressCountry\": \"CA\"}}]}</script>\n<!-- seo:end -->\n<meta name=\"viewport\" content=\"\
-    width=device-width, initial-scale=1, viewport-fit=cover\">\n<meta name=\"theme-color\" content=\"#ffd400\">\n<meta name=\"\
-    apple-mobile-web-app-capable\" content=\"yes\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link\
-    \ rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap\"\
-    \ rel=\"stylesheet\">\n<link id=\"ui-favicon\" rel=\"icon\" type=\"image/svg+xml\" href=\"_/theme/icon.svg?v=8eb12478c8\"\
-    >\n<link rel=\"apple-touch-icon\" href=\"_/theme/icon-180.png?v=8eb12478c8\">\n<script>\n/* Keep our tab icon: Anvil adds\
-    \ its own <link rel=\"icon\">, so drop any other icon link. */\n(function () {\n  function keep() {\n    var ours = document.getElementById('ui-favicon');\n\
-    \    if (!ours) return;\n    document.querySelectorAll('link[rel~=\"icon\"]').forEach(function (l) { if (l !== ours) l.remove();\
-    \ });\n  }\n  keep();\n  document.addEventListener('DOMContentLoaded', keep);\n  window.addEventListener('load', keep);\n\
-    })();\n</script>\n\n<!-- Prepsto feedback panel: every \"Submit feedback\" link and button opens it (it is the only feedback\
-    \ channel). No floating button, no cookies, nothing loads until it is opened. Codes: APP_MAKER/prepsto-links.json -->\n\
-    <script src=\"https://prepsto.com/_/theme/widget.js\" data-prepsto=\"u2cum5r\" data-button=\"false\" data-label=\"Submit\
-    \ feedback\" async></script>\n<link rel=\"stylesheet\" href=\"_/theme/app.css?v=175283c356\">\n<script src=\"_/theme/app.js?v=1dea32ac78\"\
-    ></script>\n"
+  head_html: |
+    <script src="_/theme/legal-kit.js?v=830823d919"></script>
+    <!-- seo:start (APP_MAKER/seo: edit seo/apps/servicerequest.json and run seo.py, not here) -->
+    <link rel="canonical" href="https://service-request.anvil.app/">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="keywords" content="odd jobs near me, neighbourhood help, snow shovelling help, leaf raking service, junk removal near me, TaskRabbit alternative, small jobs Montreal, e-Transfer jobs, local helpers">
+    <meta name="author" content="Arkvital">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Service Request">
+    <meta property="og:title" content="Service Request: post a bounty, get help from a neighbour">
+    <meta property="og:description" content="Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus.">
+    <meta property="og:locale" content="en_CA">
+    <meta property="og:url" content="https://service-request.anvil.app/">
+    <meta property="og:image" content="https://service-request.anvil.app/_/theme/og-image.png">
+    <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Service Request: Post a bounty, get help from a neighbour. Paid in cash or e-Transfer.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Service Request: post a bounty, get help from a neighbour">
+    <meta name="twitter:description" content="Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus.">
+    <meta name="twitter:image" content="https://service-request.anvil.app/_/theme/og-image.png">
+    <link rel="alternate" type="text/plain" title="Service Request for AI assistants" href="https://service-request.anvil.app/llms.txt">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "@id": "https://service-request.anvil.app/#app", "name": "Service Request", "url": "https://service-request.anvil.app/", "description": "Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus.", "image": "https://service-request.anvil.app/_/theme/og-image.png", "inLanguage": "en", "publisher": {"@id": "https://arkvital.com/#org"}, "keywords": "odd jobs near me, neighbourhood help, snow shovelling help, leaf raking service, junk removal near me, TaskRabbit alternative, small jobs Montreal, e-Transfer jobs, local helpers", "applicationCategory": "LifestyleApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript and a modern web browser", "featureList": ["40 kinds of neighbourly jobs, from $20", "A bounty board with a map of price-tag pins", "Offers from nearby helpers; the poster chooses", "Photo proof and a weighted quality checklist", "An optional quality bonus", "Paid directly in cash or Interac e-Transfer"], "audience": {"@type": "Audience", "audienceType": "Neighbours who need small jobs done, and neighbours who want to earn"}}, {"@type": "WebSite", "@id": "https://service-request.anvil.app/#site", "url": "https://service-request.anvil.app/", "name": "Service Request", "publisher": {"@id": "https://arkvital.com/#org"}}, {"@type": "Organization", "@id": "https://arkvital.com/#org", "name": "Arkvital", "url": "https://arkvital.com", "email": "arkvital@outlook.com", "address": {"@type": "PostalAddress", "addressLocality": "Montreal", "addressRegion": "QC", "addressCountry": "CA"}}]}</script>
+    <!-- seo:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#ffd400">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap" rel="stylesheet">
+    <link id="ui-favicon" rel="icon" type="image/svg+xml" href="_/theme/icon.svg?v=cdac6c4f66">
+    <link rel="apple-touch-icon" href="_/theme/icon-180.png?v=b5d82ced25">
+    <script>
+    /* Keep our tab icon: Anvil adds its own <link rel="icon">, so drop any other icon link. */
+    (function () {
+      function keep() {
+        var ours = document.getElementById('ui-favicon');
+        if (!ours) return;
+        document.querySelectorAll('link[rel~="icon"]').forEach(function (l) { if (l !== ours) l.remove(); });
+      }
+      keep();
+      document.addEventListener('DOMContentLoaded', keep);
+      window.addEventListener('load', keep);
+    })();
+    </script>
+
+    <!-- Prepsto feedback panel: every "Submit feedback" link and button opens it (it is the only feedback channel). No floating button, no cookies, nothing loads until it is opened. Codes: APP_MAKER/prepsto-links.json -->
+    <script src="https://prepsto.com/_/theme/widget.js" data-prepsto="u2cum5r" data-button="false" data-label="Submit feedback" async></script>
+    <link rel="stylesheet" href="_/theme/icons.css?v=6160576174">
+    <link rel="stylesheet" href="_/theme/app.css?v=32c9b5553d">
+    <script src="_/theme/app-kit.js?v=6930e756d8"></script>
+    <script src="_/theme/sr-engine.js?v=1bdb77790c"></script>
 package_name: Service_Request
 runtime_options:
   client_version: '3'
@@ -803,5 +808,5 @@ services:
   server_config: {}
   source: /runtime/services/google.yml
 startup:
-  module: Main
-  type: form
+  module: startup
+  type: module

@@ -64,7 +64,7 @@ def make_offer(bounty_id, message, when_text="", ask=None):
     o = app_tables.offers.get(bounty=b, helper=me)
     if o is not None and o["status"] in ("pending", "declined"):
         return C.fail("You already made an offer on this bounty." if o["status"] == "pending" else "The poster went with someone else.")
-    fields = dict(message=message, when_text=C.text(when_text, 80), ask=int(ask), status="pending", created=C.now())
+    fields: dict = dict(message=message, when_text=C.text(when_text, 80), ask=int(ask), status="pending", created=C.now())
     if o is None:
         app_tables.offers.add_row(bounty=b, helper=me, is_demo=False, **fields)
     else:
@@ -445,7 +445,7 @@ def get_jobs():
 def get_ledger():
     """Every amount owed, sent and settled, both ways. A record only: the money moves outside the app."""
     me = C.require_user()
-    rows = []
+    rows: list = []
     for r, col in (("poster", "poster"), ("helper", "helper")):
         q = {col: me}
         for b in app_tables.bounties.search(**q):

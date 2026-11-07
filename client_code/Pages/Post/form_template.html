@@ -1,0 +1,147 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap ps-page">
+      <div class="ps-steps" role="group" aria-label="Steps">
+        <button type="button" data-step="0" anvil:dom-node="st0" anvil:on-dom:click="self.step_click"><b anvil:dom-node="sb0">1</b><span>Task</span></button>
+        <button type="button" data-step="1" anvil:dom-node="st1" anvil:on-dom:click="self.step_click"><b anvil:dom-node="sb1">2</b><span>Details</span></button>
+        <button type="button" data-step="2" anvil:dom-node="st2" anvil:on-dom:click="self.step_click"><b anvil:dom-node="sb2">3</b><span>Where</span></button>
+        <button type="button" data-step="3" anvil:dom-node="st3" anvil:on-dom:click="self.step_click"><b anvil:dom-node="sb3">4</b><span>Bounty</span></button>
+        <button type="button" data-step="4" anvil:dom-node="st4" anvil:on-dom:click="self.step_click"><b anvil:dom-node="sb4">5</b><span>Post</span></button>
+      </div>
+      <div class="ui-note ps-limit" anvil:name="limit_box"><i class="ic ic-info"></i> <span anvil:dom-node="limit_text"></span> <a href="#jobs">My jobs</a></div>
+      <div class="ps-layout">
+        <div>
+          <!-- 1. the task -->
+          <div anvil:name="step_task">
+            <div class="ps-head"><h1>What do you need done?</h1><p>Pick the closest task. Each comes with a suggested price and a quality checklist you can edit.</p></div>
+            <anvil-component type="TextBox" name="q_box" prop:type="search" prop:placeholder="Search tasks: leaves, couch, dog, Tempo…" prop:role='["ps-q"]'></anvil-component>
+            <div class="ps-cats" role="group" aria-label="Categories" tabindex="0">
+              <anvil-component type="RepeatingPanel" name="cats_panel" prop:item_template="Service_Request.Items.Chip" prop:role='["contents"]'></anvil-component>
+            </div>
+            <anvil-component type="RepeatingPanel" name="tasks_panel" prop:item_template="Service_Request.Items.TaskButton" prop:role='["ps-tasks"]'></anvil-component>
+            <p class="muted" anvil:dom-node="no_task">No task matches. Try "Another neighbourly task".</p>
+          </div>
+          <!-- 2. the details -->
+          <div anvil:name="step_details">
+            <div class="ps-head"><h1 anvil:dom-node="task_name"></h1><p>Say what needs doing. Clear bounties get better offers.</p></div>
+            <div class="ui-stack">
+              <label class="ui-field"><span>Title</span><anvil-component type="TextBox" name="title_box" prop:placeholder="e.g. Rake &amp; bag the front yard"></anvil-component></label>
+              <label class="ui-field"><span>Details</span><anvil-component type="TextArea" name="details_box"></anvil-component></label>
+              <p class="ui-hint ps-hint-up"><i class="ic ic-eyeoff"></i> Phone numbers, emails and links are hidden on the board: you'll chat with your helper in the app.</p>
+              <div><b class="small">How big is it?</b>
+                <div class="ps-sizes" role="radiogroup" aria-label="How big is it?">
+                  <label class="ps-size"><input type="radio" name="ps-size" value="small" anvil:dom-node="size_small"><span><b>Small</b><small>Under an hour</small><i anvil:dom-node="price_small"></i></span></label>
+                  <label class="ps-size"><input type="radio" name="ps-size" value="medium" anvil:dom-node="size_medium"><span><b>Medium</b><small>1 to 3 hours</small><i anvil:dom-node="price_medium"></i></span></label>
+                  <label class="ps-size"><input type="radio" name="ps-size" value="large" anvil:dom-node="size_large"><span><b>Large</b><small>Half a day or more</small><i anvil:dom-node="price_large"></i></span></label>
+                </div>
+              </div>
+              <div class="ui-grid two">
+                <label class="ui-field"><span>Date <em>(optional)</em></span><anvil-component type="TextBox" name="date_box"></anvil-component></label>
+                <label class="ui-field"><span>When works <em>(optional)</em></span><anvil-component type="TextBox" name="when_box" prop:placeholder="e.g. Saturday morning"></anvil-component></label>
+              </div>
+              <div><b class="small">Photos <span class="muted">(optional, up to 4: helpers love a "before" picture)</span></b>
+                <p class="small" anvil:dom-node="photo_count"></p>
+                <div class="ps-up"><anvil-component type="Service_Request.Components.Uploader" name="uploader" prop:maximum="4" prop:label="Add a photo"></anvil-component></div>
+              </div>
+            </div>
+          </div>
+          <!-- 3. where -->
+          <div anvil:name="step_where">
+            <div class="ps-head"><h1>Where is the job?</h1><p>The board shows the area and a circle, never your address.</p></div>
+            <div class="ui-stack">
+              <div class="ps-spot">
+                <div class="ps-spot-map"><anvil-component type="Service_Request.Components.Map" name="spot_map" prop:height="220px"></anvil-component></div>
+                <div class="ui-stack ps-spot-acts">
+                  <anvil-component type="Button" name="pick_button" prop:text="Pick the spot on the map" prop:role='["btn", "btn-primary", "ic-pin"]'></anvil-component>
+                  <anvil-component type="Button" name="myarea_button" prop:text="Use my area" prop:role='["btn", "ic-home"]'></anvil-component>
+                  <p class="ps-area" anvil:dom-node="area_line"></p>
+                </div>
+              </div>
+              <label class="ui-field"><span>Street address <i class="ic ic-lock"></i></span><anvil-component type="TextBox" name="address_box" prop:placeholder="e.g. 1234 rue Fullum, apt 2"></anvil-component></label>
+              <p class="ui-hint ps-hint-up">Only the helper you pick sees it, once you pick them.</p>
+            </div>
+          </div>
+          <!-- 4. the bounty -->
+          <div anvil:name="step_bounty">
+            <div class="ps-head"><h1>Set the bounty</h1><p anvil:dom-node="bounty_lead"></p></div>
+            <div class="ui-stack">
+              <div class="ui-card flat"><b>Bounty</b><p class="small muted ps-sub">Paid once you validate the work.</p>
+                <div class="ps-money">
+                  <anvil-component type="Button" name="minus_button" prop:text="−" prop:role='["btn"]' prop:tooltip="Minus 5 dollars"></anvil-component>
+                  <anvil-component type="TextBox" name="base_box" prop:type="number"></anvil-component>
+                  <anvil-component type="Button" name="plus_button" prop:text="+" prop:role='["btn"]' prop:tooltip="Plus 5 dollars"></anvil-component>
+                </div>
+                <div class="ps-pills"><anvil-component type="RepeatingPanel" name="presets_panel" prop:item_template="Service_Request.Items.Chip" prop:role='["contents"]'></anvil-component></div>
+              </div>
+              <div class="ui-card flat">
+                <label class="ui-check"><input type="checkbox" anvil:dom-node="use_bonus"> <span><b>Add a quality bonus</b><br><span class="small muted">Paid on top, only if the checklist score reaches the bar you set. Great helpers go for it.</span></span></label>
+                <div class="ps-bonusbox" anvil:name="bonus_box">
+                  <div class="ui-grid two">
+                    <div><b class="small">Bonus</b><div class="ps-pills"><anvil-component type="RepeatingPanel" name="bonus_panel" prop:item_template="Service_Request.Items.Chip" prop:role='["contents"]'></anvil-component></div></div>
+                    <div><b class="small">Quality bar</b><div class="ps-pills"><anvil-component type="RepeatingPanel" name="bar_panel" prop:item_template="Service_Request.Items.Chip" prop:role='["contents"]'></anvil-component></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-card flat"><b>Quality checklist</b><p class="small muted ps-sub">You tick these when the job is done. Each is worth the same share of the score. Keep 2 to 8 clear, checkable items.</p>
+                <anvil-component type="RepeatingPanel" name="checklist_panel" prop:item_template="Service_Request.Items.ChecklistEdit" prop:role='["ps-checklist"]'></anvil-component>
+                <anvil-component type="Button" name="add_item_button" prop:text="Add an item" prop:role='["btn", "btn-sm", "ic-plus", "ps-add"]'></anvil-component>
+                <div class="ps-explain" anvil:dom-node="explain"></div>
+              </div>
+              <div><b class="small">How will you pay?</b>
+                <div class="ps-pay" role="radiogroup" aria-label="How will you pay?">
+                  <label class="ui-choice"><input type="radio" name="ps-pay" value="cash" anvil:dom-node="pay_cash"><span><i class="ic ic-cash"></i>Cash on the spot</span></label>
+                  <label class="ui-choice"><input type="radio" name="ps-pay" value="etransfer" anvil:dom-node="pay_etransfer"><span><i class="ic ic-bank"></i>Interac e-Transfer</span></label>
+                  <label class="ui-choice"><input type="radio" name="ps-pay" value="either" anvil:dom-node="pay_either"><span><i class="ic ic-wallet"></i>Cash or e-Transfer</span></label>
+                </div>
+                <p class="ui-hint">No money goes through the app and there are no fees. You pay your helper directly once the job is validated; their e-Transfer email shows up then.</p>
+              </div>
+            </div>
+          </div>
+          <!-- 5. review and post -->
+          <div anvil:name="step_review">
+            <div class="ps-head"><h1>Ready to post?</h1><p>Check it over. You can raise the bounty later, but not lower it.</p></div>
+            <div class="ui-stack">
+              <div class="ui-card flat"><dl class="ps-sum">
+                <dt>Task</dt><dd anvil:dom-node="sum_task"></dd><dt>Title</dt><dd anvil:dom-node="sum_title"></dd>
+                <dt>Details</dt><dd anvil:dom-node="sum_details"></dd><dt>When</dt><dd anvil:dom-node="sum_when"></dd>
+                <dt>Size</dt><dd anvil:dom-node="sum_size"></dd><dt>Where</dt><dd><span anvil:dom-node="sum_where"></span> <i class="ic ic-lock"></i></dd>
+                <dt>Bounty</dt><dd anvil:dom-node="sum_bounty"></dd><dt>Payment</dt><dd anvil:dom-node="sum_pay"></dd>
+                <dt>Checklist</dt><dd anvil:dom-node="sum_checklist"></dd><dt>Photos</dt><dd anvil:dom-node="sum_photos"></dd>
+              </dl></div>
+              <div class="ui-card flat ps-rules"><b>Before you post</b>
+                <label class="ui-check"><input type="checkbox" anvil:dom-node="rule0"> It's a neighbourly job: no licence needed, no roof, nothing hazardous.</label>
+                <label class="ui-check"><input type="checkbox" anvil:dom-node="rule1"> I'll pay within 3 days of validating, in cash or by e-Transfer, exactly what the score says.</label>
+                <label class="ui-check"><input type="checkbox" anvil:dom-node="rule2"> I won't ask anyone to pay, buy, or advance money for me.</label>
+              </div>
+              <anvil-component type="Label" name="error_label" prop:role='["msg-error"]' prop:visible="false"></anvil-component>
+            </div>
+          </div>
+          <div class="ps-nav">
+            <anvil-component type="Button" name="prev_button" prop:text="Back" prop:role='["btn", "ic-back"]'></anvil-component>
+            <span class="ui-spacer"></span>
+            <anvil-component type="Button" name="next_button" prop:text="Next" prop:role='["btn", "btn-primary", "ic-arrow", "ic-after"]'></anvil-component>
+            <anvil-component type="Button" name="post_button" prop:text="Post the bounty" prop:role='["btn", "btn-primary", "btn-lg", "ic-tag"]'></anvil-component>
+          </div>
+        </div>
+        <aside class="ps-aside">
+          <div class="ui-card flat" anvil:name="how_box">
+            <h2 class="ps-aside-h"><i class="ic ic-bulb"></i> How it works</h2>
+            <ol class="small muted ps-how">
+              <li>Post a bounty: what, where, how much (from $20).</li><li>Neighbours send offers. You pick one; only they see your address.</li>
+              <li>They send photo proof. You tick the checklist: that's the quality score.</li><li>You pay cash or e-Transfer. Bonus if the score reaches your bar.</li>
+            </ol>
+          </div>
+          <div anvil:name="preview_box">
+            <p class="small ps-preview-h"><i class="ic ic-search"></i> How it looks on the board</p>
+            <div class="ps-preview" inert><anvil-component type="RepeatingPanel" name="preview_panel" prop:item_template="Service_Request.Items.BountyCard" prop:role='["contents"]'></anvil-component></div>
+          </div>
+          <div class="ui-card flat" anvil:name="rules_box">
+            <h2 class="ps-aside-h"><i class="ic ic-shield"></i> Not allowed</h2>
+            <anvil-component type="RepeatingPanel" name="not_allowed_panel" prop:item_template="Service_Request.Items.Line" prop:role='["ps-not"]'></anvil-component>
+            <a class="small" href="#rules">All the rules</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

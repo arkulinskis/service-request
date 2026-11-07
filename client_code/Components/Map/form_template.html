@@ -1,0 +1,15 @@
+---
+custom_component: true
+properties:
+  - name: height
+    type: string
+    default_value: ""
+    description: CSS height of the map (e.g. 280px); empty = the page's CSS decides
+toolbox_item:
+  title: Map
+  group: Service Request
+help_text: |
+  An OpenStreetMap map (Leaflet, from theme/assets/sr-engine.js). board(...) draws price-tag pins, point(...) one place
+  (an exact pin or a ~500 m circle). It mounts when shown and lets go of the map when hidden.
+---
+<div class="sr-map-host"><div class="sr-map" anvil:dom-node="box"><div class="sr-map-msg" anvil:dom-node="msg">Loading the map…</div></div></div>

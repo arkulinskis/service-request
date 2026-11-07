@@ -1,0 +1,49 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap bd-page">
+      <div class="bd-guest" anvil:name="guest_band">
+        <p><i class="ic ic-hand"></i> Neighbours pay from $20 for leaves, snow, junk and more. Sign up to make offers or post your own.</p>
+        <div class="ui-row"><a class="ui-btn primary" href="#auth/signup">Join free</a><a class="ui-btn bd-light" href="#landing">How it works</a></div>
+      </div>
+      <section class="bd-hero">
+        <div>
+          <h1>Bounties near <button type="button" class="bd-area" anvil:dom-node="area_name" anvil:on-dom:click="self.area_click" title="Change area">Montréal</button></h1>
+          <p anvil:dom-node="summary"></p>
+        </div>
+        <div class="ui-row">
+          <anvil-component type="Button" name="area_button" prop:text="Change area" prop:role='["btn", "ic-pin"]'></anvil-component>
+          <a class="ui-btn primary" href="#post"><i class="ic ic-plus"></i>Post a bounty</a>
+        </div>
+      </section>
+      <div class="bd-search" role="search">
+        <anvil-component type="TextBox" name="search_box" prop:type="search" prop:placeholder="Search: leaves, snow, moving, Verdun…"></anvil-component>
+        <anvil-component type="Button" name="search_button" prop:text="Search" prop:role='["btn", "btn-dark", "ic-search"]'></anvil-component>
+      </div>
+      <div class="bd-chips" role="group" aria-label="Categories" tabindex="0">
+        <anvil-component type="RepeatingPanel" name="chips_panel" prop:item_template="Service_Request.Items.Chip" prop:role='["contents"]'></anvil-component>
+      </div>
+      <div class="bd-filters">
+        <anvil-component type="DropDown" name="sort_box"></anvil-component>
+        <anvil-component type="DropDown" name="dist_box"></anvil-component>
+        <anvil-component type="DropDown" name="pay_box"></anvil-component>
+        <anvil-component type="CheckBox" name="bonus_box" prop:text="Quality bonus only" prop:role='["bd-check"]'></anvil-component>
+        <span class="ui-spacer"></span>
+        <div class="ui-seg bd-view" role="group" aria-label="Show">
+          <button type="button" class="on" anvil:name="show_list" anvil:on-dom:click="self.show_list_click">List</button>
+          <button type="button" anvil:name="show_map" anvil:on-dom:click="self.show_map_click">Map</button>
+        </div>
+      </div>
+      <div class="bd-split" data-show="list" anvil:dom-node="split">
+        <div class="bd-list">
+          <p class="bd-count" anvil:dom-node="count"></p>
+          <anvil-component type="RepeatingPanel" name="cards_panel" prop:item_template="Service_Request.Items.BountyCard" prop:role='["sr-cards"]'></anvil-component>
+          <div class="ui-empty" anvil:name="empty_box">
+            <i class="ic ic-search"></i><h2>No bounties match</h2><p>Try another category or a wider distance, or post the job you need done.</p>
+            <anvil-component type="Button" name="reset_button" prop:text="Clear filters" prop:role='["btn"]'></anvil-component>
+          </div>
+        </div>
+        <div class="bd-mapcol"><anvil-component type="Service_Request.Components.Map" name="map"></anvil-component></div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

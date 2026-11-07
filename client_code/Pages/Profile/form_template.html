@@ -1,0 +1,55 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap ui-narrow pf-page">
+      <div class="pf-head">
+        <span class="ui-avatar" anvil:dom-node="av"></span>
+        <div class="grow"><h1 anvil:dom-node="name"></h1><div class="muted" anvil:dom-node="email"></div>
+          <div class="small muted" anvil:dom-node="seen_as"></div></div>
+        <a class="ui-btn" anvil:dom-node="public_link"><i class="ic ic-star"></i>See my public page</a>
+      </div>
+      <div class="pf-grid">
+        <div class="ui-card ui-stack pf-wide">
+          <h2 class="pf-h">Helper profile</h2><p class="muted small pf-lead">What posters see when you send an offer.</p>
+          <anvil-component type="CheckBox" name="helper_on" prop:text="I'm open to jobs (show me as a helper)"></anvil-component>
+          <label class="ui-field"><span>About you</span><anvil-component type="TextArea" name="bio_box" prop:placeholder="e.g. Student, early riser, I own a good shovel and a car."></anvil-component></label>
+          <div><b class="small">What you bring</b>
+            <div class="pf-skills" role="group" aria-label="What you bring"><anvil-component type="RepeatingPanel" name="skills_panel" prop:item_template="Service_Request.Items.Chip" prop:role='["contents"]'></anvil-component></div></div>
+          <label class="ui-field"><span>Your Interac e-Transfer email <em>(optional)</em></span><anvil-component type="TextBox" name="payout_box" prop:type="email" prop:placeholder="the email your bank uses for e-Transfers"></anvil-component></label>
+          <p class="ui-hint pf-hint-up"><i class="ic ic-eyeoff"></i> Never shown on your profile. A poster sees it only after validating a job you did for them.</p>
+          <div><anvil-component type="Button" name="helper_button" prop:text="Save helper profile" prop:role='["btn", "btn-primary"]'></anvil-component></div>
+        </div>
+        <div class="ui-card ui-stack">
+          <h2 class="pf-h">Your area</h2>
+          <div class="pf-area"><div><b anvil:dom-node="area"></b><div class="small muted" anvil:dom-node="area_sub"></div></div>
+            <anvil-component type="Button" name="area_button" prop:text="Set my area" prop:role='["btn", "ic-pin"]'></anvil-component></div>
+          <p class="ui-hint"><i class="ic ic-lock"></i> Others only see the area name.</p>
+        </div>
+        <div class="ui-card ui-stack">
+          <h2 class="pf-h">Your name</h2>
+          <label class="ui-field"><span anvil:dom-node="name_cap">Your full name</span><anvil-component type="TextBox" name="name_box"></anvil-component></label>
+          <div><anvil-component type="Button" name="name_button" prop:text="Save" prop:role='["btn", "btn-primary"]'></anvil-component></div>
+        </div>
+        <div class="ui-card ui-stack">
+          <h2 class="pf-h">Appearance</h2><p class="muted small">Follow your device, or pick one.</p>
+          <div class="ui-seg" role="group" aria-label="Appearance">
+            <button type="button" data-theme-set="auto" anvil:name="theme_auto" anvil:on-dom:click="self.theme_click">Auto</button>
+            <button type="button" data-theme-set="light" anvil:name="theme_light" anvil:on-dom:click="self.theme_click">Light</button>
+            <button type="button" data-theme-set="dark" anvil:name="theme_dark" anvil:on-dom:click="self.theme_click">Dark</button>
+          </div>
+        </div>
+        <div class="ui-card ui-stack">
+          <h2 class="pf-h">Password</h2><p class="muted small">We'll email you a link to choose a new one.</p>
+          <div><anvil-component type="Button" name="reset_button" prop:text="Email me a reset link" prop:role='["btn", "ic-mail"]'></anvil-component></div>
+        </div>
+      </div>
+      <div class="ui-card pf-more"><div class="pf-links">
+        <a href="#admin" anvil:name="admin_link"><i class="ic ic-shield"></i>Admin</a>
+        <a href="#ledger"><i class="ic ic-wallet"></i>Your ledger</a>
+        <a href="#rules"><i class="ic ic-flag"></i>Rules &amp; safety</a>
+        <button type="button" anvil:on-dom:click="self.feedback_click"><i class="ic ic-chat"></i>Submit feedback</button>
+        <button type="button" data-lk-open="overview"><i class="ic ic-lock"></i>Privacy &amp; Terms, and your data</button>
+        <button type="button" anvil:on-dom:click="self.sign_out_click"><i class="ic ic-logout"></i>Sign out</button>
+      </div></div>
+    </div>
+  </anvil-block>
+</anvil-form>

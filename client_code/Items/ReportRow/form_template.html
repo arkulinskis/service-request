@@ -1,0 +1,13 @@
+<div class="ui-item ad-b">
+  <div class="ui-row between top">
+    <div><span class="ui-badge" anvil:dom-node="kind"></span> <span anvil:dom-node="who"></span></div>
+    <span class="small muted" anvil:dom-node="when"></span>
+  </div>
+  <p class="det ad-rep-text" anvil:dom-node="text"></p>
+  <div class="ui-row ad-acts" anvil:name="acts">
+    <anvil-component type="TextBox" name="note_box" prop:placeholder="Note (optional)" prop:role='["ad-note"]'></anvil-component>
+    <anvil-component type="Button" name="uphold_button" prop:text="Uphold (strike)" prop:role='["btn", "btn-sm", "btn-danger"]'></anvil-component>
+    <anvil-component type="Button" name="dismiss_button" prop:text="Dismiss" prop:role='["btn", "btn-sm"]'></anvil-component>
+  </div>
+  <p class="small muted ad-handled" anvil:dom-node="handled"></p>
+</div>

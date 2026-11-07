@@ -1,0 +1,36 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap lg-page">
+      <div class="ui-page-head">
+        <div><h1>Ledger</h1><p class="muted">Every bounty you earned or paid. The money moves in cash or by e-Transfer; this is the record.</p></div>
+        <anvil-component type="Button" name="csv_button" prop:text="Export CSV" prop:role='["btn", "ic-download"]'></anvil-component>
+      </div>
+      <div class="lg-tot">
+        <div class="ui-card hi"><b anvil:dom-node="earned"></b><span anvil:dom-node="earned_sub">earned</span></div>
+        <div class="ui-card"><b anvil:dom-node="coming"></b><span>coming to you</span></div>
+        <div class="ui-card"><b anvil:dom-node="spent"></b><span>paid to neighbours</span></div>
+        <div class="ui-card"><b anvil:dom-node="owe"></b><span>you owe</span></div>
+      </div>
+      <div class="ui-row lg-filter">
+        <div class="ui-seg" role="group" aria-label="Show">
+          <button type="button" anvil:name="f_all" data-f="all" anvil:on-dom:click="self.filter_click">All</button>
+          <button type="button" anvil:name="f_in" data-f="in" anvil:on-dom:click="self.filter_click">Earned</button>
+          <button type="button" anvil:name="f_out" data-f="out" anvil:on-dom:click="self.filter_click">Paid</button>
+        </div>
+      </div>
+      <div class="ui-card lg-card" anvil:name="table_box">
+        <div class="lg-row lg-headrow" aria-hidden="true"><span>Bounty</span><span>With</span><span>How</span><span>State</span><span class="amt">Amount</span></div>
+        <anvil-component type="RepeatingPanel" name="rows_panel" prop:item_template="Service_Request.Items.LedgerRow" prop:role='["lg-rows"]'></anvil-component>
+      </div>
+      <div class="ui-empty" anvil:name="empty_box">
+        <i class="ic ic-wallet"></i><h2>Nothing here yet</h2><p>Once a job is validated, what's owed shows up here, then what was paid.</p>
+        <a class="ui-btn primary" href="#board">Find a bounty</a>
+      </div>
+      <div class="ui-card flat lg-why">
+        <i class="ic ic-bank"></i>
+        <div><h2>Why doesn't the money go through the app?</h2>
+          <p class="muted">Moving other people's money is regulated in Canada, so for now you pay each other directly: cash in hand or an Interac e-Transfer. No fees, no wallet to top up. The app keeps the record, the references and the dates, so there's a paper trail if anything goes wrong. In-app payments may come later.</p></div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

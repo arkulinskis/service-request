@@ -1,0 +1,19 @@
+---
+custom_component: true
+properties:
+  - name: label
+    type: string
+    default_value: Add photo
+    description: Text on the "add" tile
+  - name: maximum
+    type: number
+    default_value: 4
+    description: How many photos can be added
+toolbox_item:
+  title: Uploader
+  group: Service Request
+help_text: |
+  Photo tiles + an "add" tile. Each picture is shrunk in the browser (sr-engine.js SR.shrink) and uploaded right away
+  (upload_photo). keys() = the uploaded photo keys; busy() = still uploading.
+---
+<div class="sr-up-host" anvil:dom-node="box"></div>

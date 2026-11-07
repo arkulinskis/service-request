@@ -1,0 +1,73 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap rl-page">
+      <section class="rl-hero">
+        <div><h1>Rules &amp; safety: fair pay, real neighbours, no scams.</h1>
+          <p>Service Request is a bounty board for neighbourly jobs. Here's how paying works, how quality is judged, and how the app protects both sides.</p></div>
+        <span class="sr-tag big"><b anvil:dom-node="min_tag">$20+</b><i>every bounty</i></span>
+      </section>
+      <nav class="rl-toc" aria-label="Sections">
+        <a class="sr-chip" href="#rules/pay" data-jump="pay" anvil:on-dom:click="self.jump_click"><i class="ic ic-cash"></i>Paying</a>
+        <a class="sr-chip" href="#rules/quality" data-jump="quality" anvil:on-dom:click="self.jump_click"><i class="ic ic-ruler"></i>Quality &amp; bonus</a>
+        <a class="sr-chip" href="#rules/scams" data-jump="scams" anvil:on-dom:click="self.jump_click"><i class="ic ic-flag"></i>Scams</a>
+        <a class="sr-chip" href="#rules/allowed" data-jump="allowed" anvil:on-dom:click="self.jump_click"><i class="ic ic-check"></i>What's allowed</a>
+        <a class="sr-chip" href="#rules/privacy" data-jump="privacy" anvil:on-dom:click="self.jump_click"><i class="ic ic-eyeoff"></i>Privacy</a>
+        <a class="sr-chip" href="#rules/disputes" data-jump="disputes" anvil:on-dom:click="self.jump_click"><i class="ic ic-shield"></i>Disputes</a>
+        <a class="sr-chip" href="#rules/tasks" data-jump="tasks" anvil:on-dom:click="self.jump_click"><i class="ic ic-grid"></i>All 40 tasks</a>
+      </nav>
+      <div class="rl-grid">
+        <section class="ui-card rl-sec" id="rl-pay"><h2><i class="ic ic-cash"></i>Paying</h2><ul class="rl-no rl-yes">
+          <li><i class="ic ic-check"></i><span>You pay the helper directly: cash in hand, or an Interac e-Transfer from your bank. No money goes through the app and there are no fees.</span></li>
+          <li><i class="ic ic-check"></i><span anvil:dom-node="pay_amount">The amount is set before the job: the bounty (at least $20), plus the quality bonus if the checklist score reaches the bar.</span></li>
+          <li><i class="ic ic-check"></i><span>You pay after you validate the work, within 3 days. Until then, you can't post or hire again.</span></li>
+          <li><i class="ic ic-check"></i><span>The helper's e-Transfer email is shown to you only after you validate their work, and only on that bounty.</span></li>
+          <li><i class="ic ic-check"></i><span>Both sides confirm: you mark it paid (with the bank reference for e-Transfers), the helper confirms they got it.</span></li></ul></section>
+        <section class="ui-card rl-sec" id="rl-quality"><h2><i class="ic ic-ruler"></i>Quality &amp; bonus</h2>
+          <p>Every bounty has a checklist of 2 to 8 things anyone can check: "bags at the curb", "plow ridge cleared". When the job is done, the helper sends photos and ticks what they did. The poster then ticks what they see.</p>
+          <p><b>The score is the share of items ticked.</b> 4 of 5 is 80%. If the poster set a bonus, say $10 at 80%, the helper gets it from 80% up.</p>
+          <ul class="rl-no rl-yes">
+            <li><i class="ic ic-check"></i><span>Unticking an item needs a written reason the helper can read.</span></li>
+            <li><i class="ic ic-check"></i><span>If the poster doesn't check within 48 hours, the helper's own checklist counts.</span></li>
+            <li><i class="ic ic-check"></i><span>Every poster's profile shows how often they pay the bonus, so tough graders are easy to spot.</span></li></ul></section>
+      </div>
+      <section class="ui-card rl-sec rl-gap" id="rl-scams"><h2><i class="ic ic-flag"></i>Six scams to know</h2><div class="rl-scams">
+        <div class="rl-scam"><span class="n">1</span><div><b>The overpayment trick</b><p>Someone "accidentally" sends more than the bounty and asks you to send the difference back. The first payment bounces or gets reversed; yours doesn't. Never send money back.</p></div></div>
+        <div class="rl-scam"><span class="n">2</span><div><b>Fake e-Transfer emails</b><p>A real Interac e-Transfer shows up in your bank app. Don't click "deposit" links in emails or texts you weren't expecting, and never type your bank password on a link.</p></div></div>
+        <div class="rl-scam"><span class="n">3</span><div><b>Pay to get the job</b><p>No real poster asks for a deposit, a fee, a uniform or a "registration". The app never asks you for money either.</p></div></div>
+        <div class="rl-scam"><span class="n">4</span><div><b>Gift cards, crypto, cheques</b><p>Buying gift cards and sending the codes, crypto, or cashing a cheque for someone are classic scams. They're not allowed and the scanner flags them.</p></div></div>
+        <div class="rl-scam"><span class="n">5</span><div><b>Carrying packages</b><p>Picking up or delivering sealed packages for a stranger can make you part of a fraud or worse. Not allowed.</p></div></div>
+        <div class="rl-scam"><span class="n">6</span><div><b>Moving off the app too early</b><p>Scammers want your number before you're matched. Contact details are hidden until the poster picks you, so reports and the paper trail keep working.</p></div></div>
+      </div></section>
+      <div class="rl-grid rl-gap">
+        <section class="ui-card rl-sec" id="rl-allowed"><h2><i class="ic ic-check"></i>What's allowed</h2>
+          <p anvil:dom-node="allowed_p">Neighbourly jobs that need no degree and no licence.</p>
+          <h3 class="rl-h3">Never allowed</h3>
+          <anvil-component type="RepeatingPanel" name="not_allowed_panel" prop:item_template="Service_Request.Items.Line" prop:role='["rl-not"]'></anvil-component>
+          <p class="small muted rl-tight">A scanner reads every new bounty. Anything that looks risky waits for a moderator before it reaches the board.</p></section>
+        <section class="ui-card rl-sec" id="rl-safe"><h2><i class="ic ic-hand"></i>Staying safe</h2><ul class="rl-no rl-yes">
+          <li><i class="ic ic-check"></i><span>Meet outside, in daylight, when you can. Tell someone where you're going.</span></li>
+          <li><i class="ic ic-check"></i><span>You never have to go inside a home. If it feels wrong, leave and report it.</span></li>
+          <li><i class="ic ic-check"></i><span>Under 18? Get a parent's OK first and let them see the bounty. (The app is for 16 and up.)</span></li>
+          <li><i class="ic ic-check"></i><span>Use the poster's tools when the bounty says so, and take photos before and after.</span></li></ul></section>
+        <section class="ui-card rl-sec" id="rl-privacy"><h2><i class="ic ic-eyeoff"></i>Privacy</h2><ul class="rl-no rl-yes">
+          <li><i class="ic ic-check"></i><span>The board shows an area name and a circle about 500 m wide, never your address.</span></li>
+          <li><i class="ic ic-check"></i><span>Your street address goes only to the helper you pick, once you pick them.</span></li>
+          <li><i class="ic ic-check"></i><span>Profiles show a first name and an initial. Emails are never shown to anyone.</span></li>
+          <li><i class="ic ic-check"></i><span>Phone numbers, emails and links in bounties and offers are hidden automatically.</span></li></ul></section>
+        <section class="ui-card rl-sec" id="rl-disputes"><h2><i class="ic ic-shield"></i>Disputes &amp; strikes</h2><ul class="rl-no rl-yes">
+          <li><i class="ic ic-check"></i><span>Can't sort it out in the chat? Either side can ask a moderator. The job is frozen until they decide what is owed.</span></li>
+          <li><i class="ic ic-check"></i><span>An upheld report or a lost dispute is a strike. Three strikes pause the account.</span></li>
+          <li><i class="ic ic-check"></i><span>New accounts can have 2 live bounties and 2 jobs on the go until they finish one.</span></li>
+          <li><i class="ic ic-check"></i><span>Three reports from different neighbours take a bounty off the board until it's checked.</span></li>
+          <li><i class="ic ic-check"></i><span>Reviews are blind until both sides write theirs, and each neighbour counts once in a rating.</span></li></ul></section>
+      </div>
+      <section class="ui-card rl-sec rl-gap" id="rl-tasks"><h2><i class="ic ic-grid"></i>All 40 tasks, with suggested bounties</h2>
+        <p class="muted">Suggested prices for a small, medium and large job. Posters can always offer more.</p>
+        <div class="rl-tasks">
+          <div class="rl-trow rl-thead" aria-hidden="true"><span>Task</span><span class="blurb">What it is</span><span>Small · Medium · Large</span></div>
+          <anvil-component type="RepeatingPanel" name="tasks_panel" prop:item_template="Service_Request.Items.RuleTask" prop:role='["rl-trows"]'></anvil-component>
+        </div>
+      </section>
+    </div>
+  </anvil-block>
+</anvil-form>

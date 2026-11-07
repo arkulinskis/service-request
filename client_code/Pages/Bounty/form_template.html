@@ -1,0 +1,229 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap bt-page">
+      <a class="bt-back" href="#board" anvil:dom-node="back"><i class="ic ic-back"></i><span anvil:dom-node="back_text">Bounty board</span></a>
+
+      <div class="ui-narrow" anvil:name="gone_box">
+        <div class="ui-empty"><i class="ic ic-tag"></i><h2 anvil:dom-node="gone_h">Bounty not found</h2><p anvil:dom-node="gone_p"></p>
+          <a class="ui-btn primary" href="#board">See open bounties</a></div>
+      </div>
+
+      <div class="bt-grid" anvil:name="grid">
+        <header class="ui-card bt-head">
+          <div class="top">
+            <span anvil:dom-node="ti"></span>
+            <div>
+              <div class="catname" anvil:dom-node="catname"></div>
+              <div class="ui-row bt-badges"><span anvil:dom-node="stamp"></span><span class="ui-badge" anvil:dom-node="demo">Demo</span><span class="ui-badge brand" anvil:dom-node="yours"></span></div>
+            </div>
+          </div>
+          <h1 anvil:dom-node="title"></h1>
+          <div class="bt-meta">
+            <span><i class="ic ic-pin"></i><b anvil:dom-node="area"></b><span anvil:dom-node="away"></span></span>
+            <span><i class="ic ic-calendar"></i><span anvil:dom-node="when"></span></span>
+            <span><i class="ic ic-ruler"></i><span anvil:dom-node="size"></span></span>
+            <span anvil:dom-node="vehicle"><i class="ic ic-route"></i>Needs a vehicle</span>
+            <span><i class="ic ic-clock"></i><span anvil:dom-node="posted"></span></span>
+          </div>
+        </header>
+
+        <aside class="bt-side">
+          <div class="ui-card">
+            <div class="bt-amount"><span anvil:dom-node="tag"></span><span class="small muted bt-payline" anvil:dom-node="payline"></span></div>
+            <p class="small bt-bonusline" anvil:dom-node="bonus_line"></p>
+            <p class="small bt-agreed" anvil:dom-node="agreed"></p>
+            <div class="sr-hazard"></div>
+            <div class="bt-action">
+              <h2 class="bt-act-h" anvil:dom-node="act_h"></h2>
+              <p class="small" anvil:dom-node="act_p"></p>
+              <anvil-component type="RepeatingPanel" name="act_list" prop:item_template="Service_Request.Items.Line" prop:role='["bt-flags"]'></anvil-component>
+              <p class="small muted" anvil:dom-node="act_p2"></p>
+              <div anvil:dom-node="act_meter"></div>
+              <anvil-component type="Label" name="act_note" prop:role='["msg-note"]' prop:visible="false"></anvil-component>
+              <p class="ui-badge warn bt-left" anvil:dom-node="act_badge"><i class="ic ic-clock"></i><span anvil:dom-node="act_badge_text"></span></p>
+              <div class="bt-addr" anvil:dom-node="act_addr"></div>
+              <div class="ui-row" anvil:dom-node="act_row">
+                <a class="ui-btn sm" target="_blank" rel="noopener" anvil:dom-node="directions"><i class="ic ic-route"></i>Directions</a>
+                <a class="ui-btn sm primary" href="#proof" anvil:dom-node="jump" anvil:on-dom:click="self.jump_click"><i class="ic ic-camera"></i>Send proof</a>
+              </div>
+              <div class="ui-stack" anvil:name="offer_form">
+                <label class="ui-field"><span anvil:dom-node="offer_msg_cap">Message</span><anvil-component type="TextArea" name="offer_msg"></anvil-component></label>
+                <label class="ui-field"><span>When can you come?</span><anvil-component type="TextBox" name="offer_when" prop:placeholder="e.g. Saturday 9 am"></anvil-component></label>
+                <label class="ui-field"><span anvil:dom-node="offer_ask_cap">Your price</span><anvil-component type="TextBox" name="offer_ask" prop:type="number"></anvil-component></label>
+                <p class="ui-hint bt-hint-up">Ask more only if the job is bigger than described. The poster sees it as a counter-offer.</p>
+                <anvil-component type="Button" name="offer_button" prop:text="Send offer" prop:role='["btn", "btn-primary", "btn-block", "ic-send"]'></anvil-component>
+                <p class="ui-hint">Contact details in messages are hidden until you're picked. Never pay anything to get a job.</p>
+              </div>
+              <anvil-component type="Button" name="withdraw_button" prop:text="Withdraw my offer" prop:role='["btn", "btn-sm"]'></anvil-component>
+              <anvil-component type="Button" name="raise_button" prop:text="Raise the bounty" prop:role='["btn", "btn-sm", "ic-plus"]'></anvil-component>
+              <anvil-component type="Button" name="received_button" prop:text="I got paid" prop:role='["btn", "btn-primary", "btn-block", "ic-check"]'></anvil-component>
+              <a class="ui-btn block" anvil:dom-node="act_link" anvil:on-dom:click="self.act_link_click"></a>
+              <p class="small bt-signin" anvil:dom-node="signin_line">Already a member? <a href="#auth" anvil:on-dom:click="self.signin_click">Sign in</a></p>
+
+              <div class="bt-pay" anvil:name="pay_box">
+                <h3 anvil:dom-node="pay_h">Time to pay</h3>
+                <div class="big" anvil:dom-node="pay_big"></div>
+                <div class="bt-break">
+                  <div><span>Bounty</span><span anvil:dom-node="pay_base"></span></div>
+                  <div anvil:dom-node="pay_bonus_row"><span anvil:dom-node="pay_bonus_label"></span><span anvil:dom-node="pay_bonus"></span></div>
+                  <div class="tot"><span>Total</span><span anvil:dom-node="pay_total"></span></div>
+                </div>
+                <div anvil:name="pay_et">
+                  <p class="small bt-tight">Send an Interac e-Transfer from your bank to:</p>
+                  <div class="email"><i class="ic ic-mail"></i><span anvil:dom-node="pay_email"></span>
+                    <anvil-component type="Button" name="copy_button" prop:text="Copy" prop:role='["btn", "btn-sm", "ic-copy"]'></anvil-component></div>
+                  <label class="ui-field"><span>Reference number from your bank</span><anvil-component type="TextBox" name="pay_ref" prop:placeholder="e.g. CA1a2B3c4D"></anvil-component></label>
+                </div>
+                <p class="small" anvil:dom-node="pay_cash"></p>
+                <anvil-component type="Button" name="paid_button" prop:text="I've paid" prop:role='["btn", "btn-primary", "btn-block", "ic-check"]'></anvil-component>
+                <ul><li anvil:dom-node="pay_exact"></li><li>Pay within 3 days, or new posts are blocked until you do.</li></ul>
+              </div>
+
+              <div class="bt-small-links">
+                <anvil-component type="Button" name="cancel_link" prop:text="Cancel this bounty" prop:role='["link-btn"]'></anvil-component>
+                <anvil-component type="Button" name="backout_link" prop:text="I can't do it after all" prop:role='["link-btn"]'></anvil-component>
+                <anvil-component type="Button" name="dispute_link" prop:text="Something's wrong" prop:role='["link-btn"]'></anvil-component>
+              </div>
+            </div>
+          </div>
+          <anvil-component type="RepeatingPanel" name="people_panel" prop:item_template="Service_Request.Items.PersonCard" prop:role='["bt-people"]'></anvil-component>
+          <div class="ui-card flat">
+            <h2 class="bt-safe-h"><i class="ic ic-shield"></i> Stay safe</h2>
+            <ul class="bt-tips">
+              <li>Never pay anything to get a job, and never send money back for an "overpayment".</li>
+              <li>Check an e-Transfer in your bank app, not by clicking a link in an email.</li>
+              <li>Keep the first chats in the app: reports only work for what happens here.</li>
+              <li>Meet outside, in daylight. Tell someone where you are going.</li>
+            </ul>
+            <div class="bt-small-links bt-safe-links"><a href="#rules">Rules &amp; safety</a>
+              <anvil-component type="Button" name="report_link" prop:text="Report this bounty" prop:role='["link-btn"]'></anvil-component></div>
+          </div>
+        </aside>
+
+        <div class="bt-main">
+          <section class="ui-card bt-sec" anvil:name="photos_sec">
+            <h2><i class="ic ic-image"></i>Photos</h2>
+            <anvil-component type="RepeatingPanel" name="photos_panel" prop:item_template="Service_Request.Items.PhotoThumb" prop:role='["sr-photos"]'></anvil-component>
+          </section>
+
+          <section class="ui-card bt-sec" anvil:name="offers_sec">
+            <h2><i class="ic ic-hand"></i>Offers <span class="ui-badge" anvil:dom-node="offer_count"></span></h2>
+            <anvil-component type="RepeatingPanel" name="offers_panel" prop:item_template="Service_Request.Items.OfferCard" prop:role='["bt-offers"]'></anvil-component>
+            <div class="ui-empty bt-empty-sm" anvil:name="offers_empty"><i class="ic ic-hand"></i><h2>No offers yet</h2><p>Neighbours who can help will show up here.</p></div>
+          </section>
+
+          <section class="ui-card bt-sec" anvil:name="proof_view_sec">
+            <h2><i class="ic ic-camera"></i><span anvil:dom-node="proof_h">Proof</span></h2>
+            <anvil-component type="RepeatingPanel" name="proof_photos" prop:item_template="Service_Request.Items.PhotoThumb" prop:role='["sr-photos"]'></anvil-component>
+            <p class="bt-quote" anvil:dom-node="proof_note"></p>
+            <p class="small muted bt-tight" anvil:dom-node="proof_meta"></p>
+          </section>
+
+          <section class="ui-card bt-sec" anvil:name="validate_sec">
+            <h2><i class="ic ic-ruler"></i>Check the work</h2>
+            <p class="small muted" anvil:dom-node="validate_p"></p>
+            <div class="ui-stack">
+              <anvil-component type="RepeatingPanel" name="validate_checks" prop:item_template="Service_Request.Items.CheckRow" prop:role='["bt-checks"]'></anvil-component>
+              <div><div anvil:dom-node="live_meter"></div><p class="bt-verdict" anvil:dom-node="verdict"></p></div>
+              <label class="ui-field"><span anvil:dom-node="validate_note_cap">Note</span><anvil-component type="TextArea" name="validate_note" prop:placeholder="e.g. The walkway wasn't swept."></anvil-component></label>
+              <anvil-component type="Button" name="validate_button" prop:text="Validate the work" prop:role='["btn", "btn-primary", "btn-lg", "ic-check"]'></anvil-component>
+            </div>
+          </section>
+
+          <section class="ui-card bt-sec" id="proof" anvil:name="proof_form_sec">
+            <h2><i class="ic ic-camera"></i>Send your proof</h2>
+            <p class="small muted" anvil:dom-node="proof_form_p"></p>
+            <div class="ui-stack">
+              <anvil-component type="RepeatingPanel" name="proof_checks" prop:item_template="Service_Request.Items.CheckRow" prop:role='["bt-checks"]'></anvil-component>
+              <div><b class="small">Photos of the finished job</b> <span class="small muted">(at least 1)</span>
+                <div class="bt-up"><anvil-component type="Service_Request.Components.Uploader" name="uploader" prop:maximum="6" prop:label="Add photo"></anvil-component></div></div>
+              <label class="ui-field"><span anvil:dom-node="proof_note_cap">Note <em>(optional)</em></span><anvil-component type="TextArea" name="proof_note_box" prop:placeholder="Anything to know: what you did, what you couldn't."></anvil-component></label>
+              <div class="bt-pm" role="radiogroup" aria-label="How do you want to be paid?" anvil:dom-node="pm_box">
+                <label class="ui-choice"><input type="radio" name="sr-pm" value="etransfer" checked anvil:dom-node="pm_et"><span><i class="ic ic-bank"></i>e-Transfer</span></label>
+                <label class="ui-choice"><input type="radio" name="sr-pm" value="cash" anvil:dom-node="pm_cash"><span><i class="ic ic-cash"></i>Cash</span></label>
+              </div>
+              <div anvil:name="email_box">
+                <label class="ui-field"><span>Your e-Transfer email</span><anvil-component type="TextBox" name="proof_email" prop:type="email" prop:placeholder="the email your bank uses for Interac"></anvil-component></label>
+                <anvil-component type="CheckBox" name="remember_box" prop:text="Remember it for next time" prop:checked="true"></anvil-component>
+                <p class="ui-hint"><i class="ic ic-eyeoff"></i> <span anvil:dom-node="email_hint"></span></p>
+              </div>
+              <anvil-component type="Button" name="proof_button" prop:text="Send proof" prop:role='["btn", "btn-primary", "btn-lg", "ic-send"]'></anvil-component>
+            </div>
+          </section>
+
+          <section class="ui-card bt-sec" anvil:name="result_sec">
+            <h2><i class="ic ic-ruler"></i><span anvil:dom-node="result_h"></span> <span class="ui-badge" anvil:dom-node="result_auto">Automatic</span></h2>
+            <div anvil:dom-node="result_meter"></div>
+            <anvil-component type="RepeatingPanel" name="result_list" prop:item_template="Service_Request.Items.Line" prop:role='["bt-result"]'></anvil-component>
+            <p class="small bt-tight" anvil:dom-node="result_note"></p>
+            <p class="small muted" anvil:dom-node="result_auto_p">Validated automatically 48 h after the proof, with the helper's checklist.</p>
+          </section>
+
+          <section class="ui-card bt-sec" anvil:name="reviews_sec">
+            <h2><i class="ic ic-star"></i>Reviews</h2>
+            <div class="bt-review" anvil:name="mine_box">
+              <b anvil:dom-node="mine_h"></b> <span anvil:dom-node="mine_stars"></span>
+              <p class="bt-review-t" anvil:dom-node="mine_text"></p>
+              <anvil-component type="RepeatingPanel" name="mine_tags" prop:item_template="Service_Request.Items.Badge" prop:role='["sr-badges"]'></anvil-component>
+            </div>
+            <div class="ui-stack" anvil:name="review_form">
+              <p class="small muted bt-tight" anvil:dom-node="review_p"></p>
+              <div class="bt-starpick" role="group" aria-label="Stars">
+                <button type="button" data-star="1" aria-label="1 star" anvil:dom-node="s1" anvil:on-dom:click="self.star_click"><i class="ic ic-starf"></i></button>
+                <button type="button" data-star="2" aria-label="2 stars" anvil:dom-node="s2" anvil:on-dom:click="self.star_click"><i class="ic ic-starf"></i></button>
+                <button type="button" data-star="3" aria-label="3 stars" anvil:dom-node="s3" anvil:on-dom:click="self.star_click"><i class="ic ic-starf"></i></button>
+                <button type="button" data-star="4" aria-label="4 stars" anvil:dom-node="s4" anvil:on-dom:click="self.star_click"><i class="ic ic-starf"></i></button>
+                <button type="button" data-star="5" aria-label="5 stars" anvil:dom-node="s5" anvil:on-dom:click="self.star_click"><i class="ic ic-starf"></i></button>
+              </div>
+              <div class="bt-tags" role="group" aria-label="Tags">
+                <anvil-component type="RepeatingPanel" name="tags_panel" prop:item_template="Service_Request.Items.Chip" prop:role='["contents"]'></anvil-component>
+              </div>
+              <anvil-component type="TextArea" name="review_text" prop:placeholder="How did it go?"></anvil-component>
+              <div><anvil-component type="Button" name="review_button" prop:text="Post review" prop:role='["btn", "btn-primary", "ic-star"]'></anvil-component></div>
+            </div>
+            <div class="bt-review bt-theirs" anvil:name="theirs_box">
+              <b anvil:dom-node="theirs_h"></b> <span anvil:dom-node="theirs_stars"></span>
+              <p class="bt-review-t" anvil:dom-node="theirs_text"></p>
+              <anvil-component type="RepeatingPanel" name="theirs_tags" prop:item_template="Service_Request.Items.Badge" prop:role='["sr-badges"]'></anvil-component>
+            </div>
+          </section>
+
+          <section class="ui-card bt-sec" anvil:name="chat_sec">
+            <h2><i class="ic ic-chat"></i><span anvil:dom-node="chat_h">Chat</span></h2>
+            <div class="bt-chat" anvil:dom-node="chat_box" tabindex="0" aria-label="Messages">
+              <anvil-component type="RepeatingPanel" name="chat_panel" prop:item_template="Service_Request.Items.ChatMsg" prop:role='["contents"]'></anvil-component>
+              <p class="muted small" anvil:dom-node="chat_empty">Say hi and agree on the details: when, where the tools are, how to get in the yard.</p>
+            </div>
+            <div class="bt-chatform" anvil:name="chat_form">
+              <anvil-component type="TextArea" name="chat_text" prop:placeholder="Write a message"></anvil-component>
+              <anvil-component type="Button" name="chat_button" prop:text="Send" prop:role='["btn", "btn-primary", "btn-icon", "ic-send"]'></anvil-component>
+            </div>
+          </section>
+
+          <section class="ui-card bt-sec">
+            <h2><i class="ic ic-clipboard"></i>About the job</h2>
+            <div class="bt-details" anvil:dom-node="details"></div>
+            <p class="small muted bt-tools" anvil:dom-node="tools"><i class="ic ic-wrench"></i> <span anvil:dom-node="tools_text"></span></p>
+          </section>
+
+          <section class="ui-card bt-sec">
+            <h2><i class="ic ic-ruler"></i>How quality is measured</h2>
+            <p class="small muted" anvil:dom-node="checklist_p"></p>
+            <anvil-component type="RepeatingPanel" name="checklist_panel" prop:item_template="Service_Request.Items.Line" prop:role='["bt-checklist"]'></anvil-component>
+          </section>
+
+          <section class="ui-card bt-sec">
+            <h2><i class="ic ic-pin"></i>Where</h2>
+            <p class="small muted" anvil:dom-node="where_p"></p>
+            <anvil-component type="Service_Request.Components.Map" name="map" prop:height="280px"></anvil-component>
+          </section>
+
+          <section class="ui-card bt-sec" anvil:name="log_sec">
+            <h2><i class="ic ic-clock"></i>Timeline</h2>
+            <anvil-component type="RepeatingPanel" name="log_panel" prop:item_template="Service_Request.Items.LogRow" prop:role='["bt-log"]'></anvil-component>
+          </section>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

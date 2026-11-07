@@ -194,7 +194,7 @@ def load():
         lat = poster["spot_lat"] + rnd.uniform(-0.008, 0.008)
         lng = poster["spot_lng"] + rnd.uniform(-0.008, 0.008)
         plat, plng = Bounties.fuzz(lat, lng)
-        row = dict(poster=poster, task=task_key, title=title, details=details, size=size, lat=lat, lng=lng, pub_lat=plat, pub_lng=plng,
+        row: dict = dict(poster=poster, task=task_key, title=title, details=details, size=size, lat=lat, lng=lng, pub_lat=plat, pub_lng=plng,
                    area=poster["spot_label"], address="%d rue de l'Exemple (demo)" % rnd.randint(100, 9999), base=base, posted_base=base,
                    bonus=bonus, bar=bar, checklist=list(t["checklist"]), pay_method=pay, status=status, flags=[], photos=[],
                    proof_photos=[], created=created, updated=created, offer_count=0, poster_unread=0, helper_unread=0,

@@ -1,0 +1,23 @@
+<div class="ui sr-dlg">
+  <anvil-component type="Label" name="title_label" prop:role='["dlg-title"]' prop:text="Where are you?"></anvil-component>
+  <anvil-component type="Label" name="text_label" prop:role='["muted", "dlg-lead"]'></anvil-component>
+  <div class="ui-row sr-spot-tools">
+    <anvil-component type="Button" name="locate_button" prop:text="Use my location" prop:role='["btn", "btn-primary", "btn-sm", "ic-pin"]'></anvil-component>
+    <div class="sr-spot-search" role="search">
+      <anvil-component type="TextBox" name="search_box" prop:type="search" prop:placeholder="Or search a street or place"></anvil-component>
+      <anvil-component type="Button" name="search_button" prop:text="Search" prop:role='["btn", "btn-sm", "btn-icon", "ic-search"]'></anvil-component>
+    </div>
+  </div>
+  <div class="sr-spot-results" anvil:name="results_box">
+    <anvil-component type="RepeatingPanel" name="results_panel" prop:item_template="Service_Request.Items.SpotResult" prop:role='["contents"]'></anvil-component>
+    <anvil-component type="Label" name="results_note" prop:role='["muted", "small"]' prop:visible="false"></anvil-component>
+  </div>
+  <div class="sr-map sr-map-spot" anvil:dom-node="map"><div class="sr-map-msg">Loading the map…</div></div>
+  <anvil-component type="Label" name="hint_label" prop:role='["hint"]' prop:text="Tap the map to move the pin."></anvil-component>
+  <label class="ui-field sr-spot-label"><span anvil:dom-node="label_cap">Name of the area</span><anvil-component type="TextBox" name="label_box" prop:placeholder="e.g. Rosemont, Montréal"></anvil-component></label>
+  <anvil-component type="Label" name="error_label" prop:role='["msg-error"]' prop:visible="false"></anvil-component>
+  <div class="ui-row end">
+    <anvil-component type="Button" name="cancel_button" prop:text="Cancel" prop:role='["btn", "btn-ghost"]'></anvil-component>
+    <anvil-component type="Button" name="ok_button" prop:text="Save" prop:role='["btn", "btn-primary"]'></anvil-component>
+  </div>
+</div>
