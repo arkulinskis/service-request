@@ -7,7 +7,7 @@ around them with an offset instead of whole files.
 
 **What it is:** Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus.
 **Live:** https://service-request.anvil.app · **Repo:** github.com/arkulinskis/service-request · **Layout:** native Anvil Forms · **Deploy:** master
-**Guide** (workflow, design rules, product knowledge): `service-request/.claude/skills/servicerequest/SKILL.md`
+**Guide** (workflow, design rules, product knowledge): `.claude/skills/servicerequest/SKILL.md`
 
 ## How to change it
 
