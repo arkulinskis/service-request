@@ -724,10 +724,9 @@ db_schema:
     server: full
     title: Users
 metadata:
-  description: 'Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in
-    cash or Interac e-Transfer, with a quality bonus.'
-  logo_img: asset:icon-512.png
-  title: 'Service Request: post a bounty, get help from a neighbour'
+  description: "Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus."
+  logo_img: "asset:icon-512.png"
+  title: "Service Request: post a bounty, get help from a neighbour"
 name: Service Request
 native_deps:
   head_html: |
@@ -751,7 +750,7 @@ native_deps:
     <meta name="twitter:description" content="Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus.">
     <meta name="twitter:image" content="https://service-request.anvil.app/_/theme/og-image.png">
     <link rel="alternate" type="text/plain" title="Service Request for AI assistants" href="https://service-request.anvil.app/llms.txt">
-    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "@id": "https://service-request.anvil.app/#app", "name": "Service Request", "url": "https://service-request.anvil.app/", "description": "Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus.", "image": "https://service-request.anvil.app/_/theme/og-image.png", "inLanguage": "en", "publisher": {"@id": "https://arkvital.com/#org"}, "keywords": "odd jobs near me, neighbourhood help, snow shovelling help, leaf raking service, junk removal near me, TaskRabbit alternative, small jobs Montreal, e-Transfer jobs, local helpers", "applicationCategory": "LifestyleApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript and a modern web browser", "featureList": ["40 kinds of neighbourly jobs, from $20", "A bounty board with a map of price-tag pins", "Offers from nearby helpers; the poster chooses", "Photo proof and a weighted quality checklist", "An optional quality bonus", "Paid directly in cash or Interac e-Transfer"], "audience": {"@type": "Audience", "audienceType": "Neighbours who need small jobs done, and neighbours who want to earn"}}, {"@type": "WebSite", "@id": "https://service-request.anvil.app/#site", "url": "https://service-request.anvil.app/", "name": "Service Request", "publisher": {"@id": "https://arkvital.com/#org"}}, {"@type": "Organization", "@id": "https://arkvital.com/#org", "name": "Arkvital", "url": "https://arkvital.com", "email": "arkvital@outlook.com", "address": {"@type": "PostalAddress", "addressLocality": "Montreal", "addressRegion": "QC", "addressCountry": "CA"}}]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Service", "@id": "https://service-request.anvil.app/#app", "name": "Service Request", "url": "https://service-request.anvil.app/", "description": "Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus.", "image": "https://service-request.anvil.app/_/theme/og-image.png", "serviceType": "Post a bounty, get help from a neighbour. Paid in cash or e-Transfer.", "provider": {"@id": "https://arkvital.com/#org"}, "areaServed": "Worldwide", "availableChannel": {"@type": "ServiceChannel", "serviceUrl": "https://service-request.anvil.app/", "name": "Web browser"}, "availableLanguage": "en", "audience": {"@type": "Audience", "audienceType": "Neighbours who need small jobs done, and neighbours who want to earn"}}, {"@type": "WebSite", "@id": "https://service-request.anvil.app/#site", "url": "https://service-request.anvil.app/", "name": "Service Request", "publisher": {"@id": "https://arkvital.com/#org"}}, {"@type": "Organization", "@id": "https://arkvital.com/#org", "name": "Arkvital", "url": "https://arkvital.com", "email": "arkvital@outlook.com", "address": {"@type": "PostalAddress", "addressLocality": "Montreal", "addressRegion": "QC", "addressCountry": "CA"}}]}</script>
     <!-- seo:end -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#ffd400">
