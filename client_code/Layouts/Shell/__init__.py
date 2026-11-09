@@ -70,7 +70,7 @@ class Shell(ShellTemplate):
             self._menu(False)
 
     def _key(self, event):
-        if event.key == "Escape" and self.menu.visible:
+        if getattr(event, "key", None) == "Escape" and self.menu.visible:
             self._menu(False)
 
     @handle("", "show")
