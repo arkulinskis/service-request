@@ -6,6 +6,9 @@ import anvil.server
 from anvil.js import window
 
 from . import legal, router, state
+from . import session_guard
+
+session_guard.start()  # an expired server session reloads quietly instead of "Session expired, refresh now"
 
 
 def _test_call(name, args_json):
