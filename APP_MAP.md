@@ -46,7 +46,7 @@ around them with an offset instead of whole files.
 - Browser storage keys are unchanged (`servicerequest.theme`, `servicerequest.board.f`, `servicerequest.cheer.<id>`), read
   with `sr.stored` (real dicts, not JS proxies).
 - `window.srCall(name, argsJson)` (startup.py) = the same server calls pages make; tools/ui/smoke.js uses it to post a
-  bounty and open the poster's view. First account with arkulinskis@gmail.com becomes admin (Accounts.ADMIN_EMAILS).
+  bounty and open the poster's view. First account with your admin email (App Secret `admin_emails`) becomes admin (Accounts.ADMIN_EMAILS).
 - `theme/assets/app.css` was generated once from the JS version's CSS (selectors widened to Anvil roles, design-kit fixes,
   hazard stripes kept with `design-ok`); edit it directly from now on. Ledger and the rules page's task table are div
   grids (RepeatingPanel rows), not tables.

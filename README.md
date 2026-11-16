@@ -51,7 +51,7 @@ and links hidden in public text; fuzzed public location (200-450 m) and address 
 only after validation; new-account limits (2 live bounties, 2 active jobs); pay within 3 days or posting is blocked; strikes
 (3 = paused); 3 reports pull a bounty; blind reviews, each neighbour counted once in a rating; amounts $20-$500, bonus ≤ bounty.
 
-**For admins** (`#admin`; arkulinskis@gmail.com becomes an admin on first sign-in):
+**For admins** (`#admin`; your admin email (App Secret `admin_emails`) becomes an admin on first sign-in):
 - **Overview:** queue, disputes, reports, open / under way / payment pending / done, $ settled.
 - **Review queue:** flagged bounties with the reasons; approve or reject (with a note to the poster).
 - **Trust & safety:** settle disputes (owed full / base only / payment confirmed / nothing owed, optional strike, note), uphold
@@ -65,7 +65,7 @@ only after validation; new-account limits (2 live bounties, 2 active jobs); pay 
 1. In the Anvil editor: **Create app → Clone from GitHub**, and paste `https://github.com/arkulinskis/service-request`.
 2. **Users** service: email + password and "Continue with Google", sign-up allowed (already set in `anvil.yaml`; check it).
 3. Open the app in the editor. If it shows a **Schema Mismatch** alert, choose **"The schema of the source code is correct"** so Anvil creates the tables.
-4. **Run** it and sign up with **arkulinskis@gmail.com** straight away (that account becomes the admin).
+4. **Run** it and sign up with **your admin email** (App Secret `admin_emails`) straight away (that account becomes the admin).
 5. **Publish** (Publish → public URL, or your own domain).
 
 <!-- libraries:start -->
