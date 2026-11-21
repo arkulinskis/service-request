@@ -46,6 +46,29 @@
                 <a class="ui-btn sm" target="_blank" rel="noopener" anvil:dom-node="directions"><i class="ic ic-route"></i>Directions</a>
                 <a class="ui-btn sm primary" href="#proof" anvil:dom-node="jump" anvil:on-dom:click="self.jump_click"><i class="ic ic-camera"></i>Send proof</a>
               </div>
+              <div class="bt-track" anvil:name="track_box">
+                <h3 class="bt-sub-h">Job day</h3>
+                <ol class="bt-steps" anvil:dom-node="track" aria-label="Job day progress"></ol>
+                <div class="ui-row" anvil:dom-node="track_row">
+                  <anvil-component type="Button" name="otw_button" prop:text="On my way" prop:role='["btn", "btn-sm", "ic-route"]'></anvil-component>
+                  <anvil-component type="Button" name="here_button" prop:text="I'm here" prop:role='["btn", "btn-sm", "btn-primary", "ic-pin"]'></anvil-component>
+                </div>
+                <p class="small muted bt-track-hint" anvil:dom-node="track_hint"></p>
+                <anvil-component type="Button" name="noshow_button" prop:text="They didn't show: put it back on the board" prop:role='["btn", "btn-sm", "btn-block"]'></anvil-component>
+              </div>
+              <div class="bt-deal" anvil:name="deal_box">
+                <h3 class="bt-sub-h" anvil:dom-node="deal_h">New deal proposed</h3>
+                <p class="small" anvil:dom-node="deal_p"></p>
+                <ul class="bt-deal-items" anvil:dom-node="deal_items"></ul>
+                <p class="small muted bt-quote" anvil:dom-node="deal_reason"></p>
+                <div class="ui-row">
+                  <anvil-component type="Button" name="deal_accept_button" prop:text="Accept" prop:role='["btn", "btn-sm", "btn-primary", "ic-check"]'></anvil-component>
+                  <anvil-component type="Button" name="deal_decline_button" prop:text="Decline" prop:role='["btn", "btn-sm"]'></anvil-component>
+                  <anvil-component type="Button" name="deal_withdraw_button" prop:text="Withdraw it" prop:role='["btn", "btn-sm"]'></anvil-component>
+                </div>
+              </div>
+              <anvil-component type="Button" name="change_button" prop:text="Change the deal" prop:role='["btn", "btn-sm", "ic-edit"]'></anvil-component>
+              <a class="ui-btn sm bt-flyer-link" anvil:dom-node="flyer_link"><i class="ic ic-print"></i>Print a street flyer</a>
               <div class="ui-stack" anvil:name="offer_form">
                 <label class="ui-field"><span anvil:dom-node="offer_msg_cap">Message</span><anvil-component type="TextArea" name="offer_msg"></anvil-component></label>
                 <label class="ui-field"><span>When can you come?</span><anvil-component type="TextBox" name="offer_when" prop:placeholder="e.g. Saturday 9 am"></anvil-component></label>

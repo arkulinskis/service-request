@@ -173,6 +173,12 @@ def get_bounty(bounty_id):
                     "payout": None, "dispute": {"by": b["dispute_by"] or "", "reason": b["dispute_reason"] or ""} if b["dispute_reason"] else None,
                     "messages": [{"mine": m["sender"] == me, "who": C.public_name(m["sender"]), "text": m["text"], "at": C.iso(m["created"])}
                                  for m in app_tables.messages.search(tables.order_by("created"), bounty=b)]})
+        from . import Work
+        if b["status"] == "assigned":
+            # Job day check-ins and a proposed new deal (optional columns: empty until the schema is accepted).
+            out["checkin"] = dict(Work.col(b, "checkin") or {})
+            out["deal_change"] = dict(Work.col(b, "deal_change") or {}) or None
+            out["can_release"] = r == "poster" and Work.no_show_open(b)
         if b["validated_at"] is not None or r == "helper":
             # The e-Transfer email: the helper's own, or the poster's once the work is validated. Never anyone else.
             out["payout"] = {"method": b["payout_method"] or "", "email": b["payout_email"] or ""}

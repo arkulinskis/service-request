@@ -6,9 +6,15 @@ from anvil.js import window
 from ._anvil_designer import BountyTemplate
 from ... import router, sr, state
 from ...Dialogs.Ask import Ask
+from ...Dialogs.ChangeDeal import ChangeDeal
 
 CLOSED = ("cancelled", "rejected", "expired", "removed")
 CHAT_STATES = ("assigned", "submitted", "validated", "paid", "done", "disputed")
+# Red flags of a fake e-Transfer (Kijiji, RCMP and bank advice), shown before the helper confirms a payment.
+PAY_GUARD = ["Look for it in your banking app. A real deposit is there, not only in an email.",
+             "Never click a deposit link or scan a QR code to \"accept\" money.",
+             "Nobody needs your card number, PIN or password to pay you.",
+             "Tip: turn on Interac Autodeposit and money lands with no email to click."]
 
 
 class Bounty(BountyTemplate):
@@ -144,12 +150,12 @@ class Bounty(BountyTemplate):
     def _reset_action(self):
         n = self.dom_nodes
         for node in (n["act_h"], n["act_p"], n["act_p2"], n["act_meter"], n["act_badge"], n["act_addr"], n["act_row"],
-                     n["act_link"], n["signin_line"]):
+                     n["act_link"], n["signin_line"], n["flyer_link"]):
             node.hidden = True
         self.act_list.visible = False
         self.act_note.visible = False
         for comp in (self.offer_form, self.withdraw_button, self.raise_button, self.received_button, self.pay_box,
-                     self.cancel_link, self.backout_link, self.dispute_link):
+                     self.cancel_link, self.backout_link, self.dispute_link, self.track_box, self.deal_box, self.change_button):
             comp.visible = False
         self._link = ""
 
@@ -233,6 +239,7 @@ class Bounty(BountyTemplate):
             state.set_control_attr(self.offer_ask, "max", min(b["base"] * 2, 500))
             state.set_control_attr(self.offer_ask, "step", 1)
             self.offer_form.visible = True
+            self._flyer()
             return
         if r == "poster":
             if s == "review":
@@ -247,11 +254,14 @@ class Bounty(BountyTemplate):
                 self._p("Compare the offers below: track record, reviews and what they say. Only the one you pick sees your address."
                         if b.get("offers") else "Neighbours nearby can see it now. Sweeten the deal to get offers faster.", muted=True)
                 self.raise_button.visible = True
+                self._flyer()
                 self.cancel_link.visible = True
             elif s == "assigned":
                 self._h("%s is booked" % H, "check")
                 self._p("They now see your address and can chat with you below. When the job is done they send photos and their "
                         "checklist, and you validate it here.")
+                self._track(r)
+                self._deal(r)
                 self.cancel_link.visible = True
                 self._dispute()
             elif s == "submitted":
@@ -290,6 +300,8 @@ class Bounty(BountyTemplate):
                 n["act_addr"].textContent = ex.get("address") or ""
                 n["act_row"].hidden = False
                 n["directions"].setAttribute("href", "https://www.google.com/maps/dir/?api=1&destination=%s,%s" % (ex.get("lat"), ex.get("lng")))
+                self._track(r)
+                self._deal(r)
                 self.backout_link.visible = True
                 self._dispute()
             elif s == "submitted":
@@ -315,6 +327,9 @@ class Bounty(BountyTemplate):
                 self._p("<b>%s</b> by %s%s. Check your bank app (not an email link), then confirm." % (
                     e(sr.money(v.get("amount_due"))), e(sr.PAY.get(pm.get("method"), pm.get("method") or "")),
                     (", reference <b>%s</b>" % e(pm["ref"])) if pm.get("ref") else ""))
+                if pm.get("method") == "etransfer":
+                    self.act_list.items = [{"text": t, "icon": "shield", "cls": "bt-guard"} for t in PAY_GUARD]
+                    self.act_list.visible = True
                 self.received_button.text = "Yes, I got it"
                 self.received_button.visible = True
                 self._dispute("I didn't get it")
@@ -325,6 +340,69 @@ class Bounty(BountyTemplate):
                                                         " including the quality bonus" if v.get("bonus_earned") else "",
                                                         ("Review %s below." % e(P)) if rv and not rv.get("mine") else ""))
                 self._a("Find the next bounty", "#board")
+
+    def _flyer(self):
+        node = self.dom_nodes["flyer_link"]
+        node.hidden = False
+        node.setAttribute("href", router.href("flyer", self.id))
+
+    def _track(self, r):
+        """Job day: Booked -> On the way -> Arrived, with times. The helper taps the steps; the poster watches and,
+        once the day has passed with no "I'm here", can put the bounty back on the board (Work.release_no_show)."""
+        b = self.b
+        ci = b.get("checkin") or {}
+        n = self.dom_nodes
+        H = sr.first((b.get("helper") or {}).get("name"))
+        self.track_box.visible = True
+        steps = [("Booked", True, ""), ("On the way", bool(ci.get("otw")), ci.get("otw")), ("Arrived", bool(ci.get("here")), ci.get("here"))]
+        html = ""
+        for label, done, at in steps:
+            html += '<li class="%s">%s<span>%s</span>%s</li>' % (
+                "on" if done else "", sr.icon("check" if done else "clock"), sr.esc(label),
+                ('<em>%s</em>' % sr.esc(sr.fmt_datetime(at))) if at else "")
+        sr.rich(n["track"], html)
+        helper = r == "helper"
+        n["track_row"].hidden = not helper or bool(ci.get("here"))
+        self.otw_button.visible = helper and not ci.get("otw")
+        self.here_button.visible = helper and not ci.get("here")
+        if helper:
+            hint = ("You're there. Do a great job, then send the proof below." if ci.get("here") else
+                    "Tap these on the job day so %s knows you're coming." % sr.first((b.get("poster") or {}).get("name")))
+        elif ci.get("here"):
+            hint = "%s has arrived." % H
+        elif ci.get("otw"):
+            hint = "%s is on the way." % H
+        else:
+            hint = "%s taps \"On my way\" and \"I'm here\" on the job day. You'll see it here." % H
+        if r == "poster" and b.get("can_release"):
+            hint += " The job day has passed with no check-in: if they never came, you can put the bounty back on the board."
+        n["track_hint"].textContent = hint
+        self.noshow_button.visible = r == "poster" and bool(b.get("can_release"))
+
+    def _deal(self, r):
+        """A proposed new deal (Work.propose_change), or the button to propose one."""
+        b = self.b
+        d = b.get("deal_change")
+        n = self.dom_nodes
+        if not d:
+            self.change_button.visible = True
+            return
+        mine = d.get("by") == r
+        other = sr.first(((b.get("helper") if d.get("by") == "helper" else b.get("poster")) or {}).get("name"))
+        self.deal_box.visible = True
+        n["deal_h"].textContent = "You proposed a new deal" if mine else "%s proposes a new deal" % other
+        if d.get("base") != d.get("old_base"):
+            amount = "Bounty <b>%s</b> (now %s)." % (sr.esc(sr.money(d.get("base"))), sr.esc(sr.money(d.get("old_base"))))
+        else:
+            amount = "Same bounty (%s)." % sr.esc(sr.money(d.get("base")))
+        sr.rich(n["deal_p"], amount + (" Waiting for an answer." if mine else ""))
+        adds = d.get("add") or []
+        n["deal_items"].hidden = not adds
+        sr.rich(n["deal_items"], "".join("<li>%s Add: %s</li>" % (sr.icon("plus"), sr.esc(x)) for x in adds))
+        n["deal_reason"].textContent = '"%s"' % (d.get("reason") or "")
+        self.deal_accept_button.visible = not mine
+        self.deal_decline_button.visible = not mine
+        self.deal_withdraw_button.visible = mine
 
     def _pay_panel(self):
         b = self.b
@@ -657,6 +735,57 @@ class Bounty(BountyTemplate):
         r = self._act("Validated. Now pay %s." % H, "validate_work", self.id, list(self._vchecks), self.validate_note.text or "")
         if r and r.get("bonus_earned"):
             sr.confetti()
+
+    # ---- job day + changing the deal
+    @handle("otw_button", "click")
+    def otw_button_click(self, **event_args):
+        self._act("Told them you're on the way", "check_in", self.id, "otw")
+
+    @handle("here_button", "click")
+    def here_button_click(self, **event_args):
+        self._act("Told them you've arrived", "check_in", self.id, "here")
+
+    @handle("noshow_button", "click")
+    def noshow_button_click(self, **event_args):
+        H = sr.first((self.b.get("helper") or {}).get("name"))
+        bid = self.id
+
+        def run(v):
+            return anvil.server.call("release_no_show", bid, v["text"])
+        ok = alert(Ask(title="%s didn't show up?" % H, ok="Put it back on the board", danger=True, run=run,
+                       text="The bounty goes back on the board at the price you posted, and the others who offered are asked again. "
+                            "It counts as a no-show on %s's record." % H,
+                       text_field={"label": "Anything to add", "optional": True, "min": 0, "max": 300}),
+                   buttons=[], role="app-dialog", dismissible=True)
+        if ok:
+            state.toast("It's back on the board", "ok")
+            self._reload()
+
+    @handle("change_button", "click")
+    def change_button_click(self, **event_args):
+        b = self.b
+        other = sr.first(((b.get("helper") if b["role"] == "poster" else b.get("poster")) or {}).get("name"))
+        ok = alert(ChangeDeal(bounty_id=self.id, base=b["base"], bonus=b.get("bonus") or 0, other=other,
+                              items_left=8 - len(b.get("checklist") or [])),
+                   buttons=[], role="app-dialog", dismissible=True)
+        if ok:
+            state.toast("Proposal sent to " + other, "ok")
+            self._reload()
+
+    @handle("deal_accept_button", "click")
+    def deal_accept_button_click(self, **event_args):
+        d = self.b.get("deal_change") or {}
+        if confirm("The bounty and the checklist change for this job.", title="Accept the new deal (%s)?" % sr.money(d.get("base")),
+                   buttons=[("Back", False), ("Accept", True)]):
+            self._act("New deal agreed", "answer_change", self.id, True)
+
+    @handle("deal_decline_button", "click")
+    def deal_decline_button_click(self, **event_args):
+        self._act("Declined. The deal stays as it was.", "answer_change", self.id, False)
+
+    @handle("deal_withdraw_button", "click")
+    def deal_withdraw_button_click(self, **event_args):
+        self._act("Proposal withdrawn", "withdraw_change", self.id)
 
     # ---- reviews
     def _draw_stars(self):

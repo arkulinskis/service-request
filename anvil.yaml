@@ -1,36 +1,5 @@
 allow_embedding: false
 db_schema:
-  error_log:
-    client: none
-    columns:
-    - admin_ui: {order: 0, width: 200}
-      name: when
-      type: datetime
-    - admin_ui: {order: 1, width: 120}
-      name: source
-      type: string
-    - admin_ui: {order: 2, width: 160}
-      name: kind
-      type: string
-    - admin_ui: {order: 3, width: 300}
-      name: message
-      type: string
-    - admin_ui: {order: 4, width: 300}
-      name: traceback
-      type: string
-    - admin_ui: {order: 5, width: 200}
-      name: page
-      type: string
-    - admin_ui: {order: 6, width: 120}
-      name: session
-      type: string
-    - admin_ui: {order: 7, width: 200}
-      name: user
-      target: users
-      type: link_single
-    indexes: []
-    server: full
-    title: Error log
   app_settings:
     client: none
     columns:
@@ -312,9 +281,66 @@ db_schema:
         width: 200
       name: is_demo
       type: bool
+    - admin_ui:
+        order: 52
+        width: 200
+      name: checkin
+      type: simpleObject
+    - admin_ui:
+        order: 53
+        width: 200
+      name: deal_change
+      type: simpleObject
     indexes: []
     server: full
     title: Bounties
+  error_log:
+    client: none
+    columns:
+    - admin_ui:
+        order: 0
+        width: 200
+      name: when
+      type: datetime
+    - admin_ui:
+        order: 1
+        width: 120
+      name: source
+      type: string
+    - admin_ui:
+        order: 2
+        width: 160
+      name: kind
+      type: string
+    - admin_ui:
+        order: 3
+        width: 300
+      name: message
+      type: string
+    - admin_ui:
+        order: 4
+        width: 300
+      name: traceback
+      type: string
+    - admin_ui:
+        order: 5
+        width: 200
+      name: page
+      type: string
+    - admin_ui:
+        order: 6
+        width: 120
+      name: session
+      type: string
+    - admin_ui:
+        order: 7
+        width: 200
+      name: user
+      target: users
+      type: link_single
+    indexes: []
+    server: full
+    title: Error log
   feedback:
     client: none
     columns:
@@ -755,9 +781,10 @@ db_schema:
     server: full
     title: Users
 metadata:
-  description: "Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in cash or Interac e-Transfer, with a quality bonus."
-  logo_img: "asset:icon-512.png"
-  title: "Service Request: post a bounty, get help from a neighbour"
+  description: 'Post a bounty and get help from a neighbour: leaves, snow, junk, moving and 40 other jobs from $20. Pay in
+    cash or Interac e-Transfer, with a quality bonus.'
+  logo_img: asset:icon-512.png
+  title: 'Service Request: post a bounty, get help from a neighbour'
 name: Service Request
 native_deps:
   head_html: |
@@ -818,7 +845,7 @@ native_deps:
     <!-- Prepsto feedback panel: every "Submit feedback" link and button opens it (it is the only feedback channel). No floating button, no cookies, nothing loads until it is opened. Codes: APP_MAKER/prepsto-links.json -->
     <script src="https://prepsto.com/_/theme/widget.js" data-prepsto="u2cum5r" data-button="false" data-label="Submit feedback" async></script>
     <link rel="stylesheet" href="_/theme/icons.css?v=6160576174">
-    <link rel="stylesheet" href="_/theme/app.css?v=32c9b5553d">
+    <link rel="stylesheet" href="_/theme/app.css?v=b325829cfd">
     <script src="_/theme/app-kit.js?v=6930e756d8"></script>
     <script src="_/theme/sr-engine.js?v=1bdb77790c"></script>
 package_name: Service_Request

@@ -168,7 +168,7 @@ def record(user, role):
                 "bonus_jobs": bj, "bonus_paid": bp, "late_cancels": s.get("late_cancels") or 0,
                 "rating": s.get("poster_rating"), "reviews": s.get("poster_reviews") or 0,
                 "standing": "paused" if paused(user) else ("good" if not (user["strikes"] or 0) else "warned")}
-    return {"jobs": s.get("jobs") or 0, "bonus_won": s.get("bonus_won") or 0, "dropouts": s.get("dropouts") or 0,
+    return {"jobs": s.get("jobs") or 0, "bonus_won": s.get("bonus_won") or 0, "dropouts": s.get("dropouts") or 0, "noshows": s.get("noshows") or 0,
             "rating": s.get("helper_rating"), "reviews": s.get("helper_reviews") or 0, "by_cat": s.get("by_cat") or {},
             "standing": "paused" if paused(user) else ("good" if not (user["strikes"] or 0) else "warned")}
 

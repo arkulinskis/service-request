@@ -1,0 +1,22 @@
+<div class="ui sr-dlg">
+  <anvil-component type="Label" name="title_label" prop:text="Change the deal" prop:role='["dlg-title"]'></anvil-component>
+  <anvil-component type="Label" name="text_label" prop:role='["muted", "dlg-lead"]'></anvil-component>
+  <div class="ui-stack">
+    <label class="ui-field"><span anvil:dom-node="base_cap">New bounty ($)</span><anvil-component type="TextBox" name="base_box" prop:type="number"></anvil-component></label>
+    <div class="ui-field">
+      <span>Add to the checklist <em>(optional, up to 3)</em></span>
+      <div class="cd-items">
+        <anvil-component type="TextBox" name="item1_box" prop:placeholder="e.g. Bag the side yard too"></anvil-component>
+        <anvil-component type="TextBox" name="item2_box"></anvil-component>
+        <anvil-component type="TextBox" name="item3_box"></anvil-component>
+      </div>
+    </div>
+    <label class="ui-field"><span anvil:dom-node="why_cap">What changed?</span><anvil-component type="TextArea" name="why_box" prop:placeholder="e.g. There are twice as many leaves as in the photos."></anvil-component></label>
+    <p class="ui-hint"><i class="ic ic-info"></i> <span anvil:dom-node="hint"></span></p>
+    <anvil-component type="Label" name="error_label" prop:role='["msg-error"]' prop:visible="false"></anvil-component>
+    <div class="ui-row end">
+      <anvil-component type="Button" name="back_button" prop:text="Back" prop:role='["btn", "btn-ghost"]'></anvil-component>
+      <anvil-component type="Button" name="ok_button" prop:text="Send proposal" prop:role='["btn", "btn-primary", "ic-send"]'></anvil-component>
+    </div>
+  </div>
+</div>

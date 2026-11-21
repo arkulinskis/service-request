@@ -1,0 +1,40 @@
+<anvil-form layout="Service_Request.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap fl-page">
+      <div class="fl-tools">
+        <a class="bt-back" anvil:dom-node="back" href="#board"><i class="ic ic-back"></i><span anvil:dom-node="back_text">Bounty board</span></a>
+        <div class="ui-page-head">
+          <div>
+            <h1>Street flyer</h1>
+            <p class="muted" anvil:dom-node="intro">Print it (or save it as a PDF) and pin it on a pole, a café board or a laundromat wall. Neighbours tear off a tab or scan the code.</p>
+          </div>
+          <anvil-component type="Button" name="print_button" prop:text="Print" prop:role='["btn", "btn-primary", "ic-print"]'></anvil-component>
+        </div>
+        <anvil-component type="Label" name="note_label" prop:role='["msg-note"]' prop:visible="false"></anvil-component>
+      </div>
+
+      <article class="fl-sheet" aria-label="Flyer preview">
+        <div class="sr-hazard"></div>
+        <p class="fl-kicker" anvil:dom-node="kicker">Help wanted</p>
+        <h2 class="fl-title" anvil:dom-node="title"></h2>
+        <div class="fl-body">
+          <div class="fl-info">
+            <div class="fl-task"><span anvil:dom-node="ti"></span><b anvil:dom-node="task"></b></div>
+            <ul class="fl-facts" anvil:dom-node="facts"></ul>
+            <div class="fl-tag" anvil:dom-node="tag_box"><span anvil:dom-node="tag"></span></div>
+            <p class="fl-line" anvil:dom-node="line"></p>
+          </div>
+          <figure class="fl-qr">
+            <div class="fl-qr-img" anvil:dom-node="qr" role="img" aria-label="QR code"></div>
+            <figcaption anvil:dom-node="qr_cap">Scan to send an offer</figcaption>
+          </figure>
+        </div>
+        <p class="fl-url" anvil:dom-node="url"></p>
+        <p class="fl-small" anvil:dom-node="small">No fees. Paid directly in cash or Interac e-Transfer. Never pay anything to get a job.</p>
+        <div class="fl-tabs" anvil:dom-node="tabs" aria-hidden="true"></div>
+      </article>
+
+      <p class="small muted fl-after"><i class="ic ic-shield"></i> The flyer shows the area only, never the street address or anyone's name. <a anvil:dom-node="other_link" href="#flyer">Print the general flyer instead</a></p>
+    </div>
+  </anvil-block>
+</anvil-form>

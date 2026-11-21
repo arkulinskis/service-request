@@ -108,6 +108,8 @@
     if (nb) await open(nb.getAttribute('href'), /How records work/); else bad.push('no poster card on the bounty');
     await open('#rules', /Six scams/);
     await open('#rules/scams', /Six scams/);
+    await open('#flyer', /Need a hand/);
+    await open('#flyer' + bountyHref.replace('#bounty', ''), /Help wanted/);
     await open('#bounty/' + encodeURIComponent('[1,999999]'), /not found|no longer/);
     await open('#auth', /Sign in/);
     await open('#auth/signup', /Create account/);

@@ -24,6 +24,7 @@ PAGES = {
     "ledger": ("user", "Ledger"),
     "neighbour": (None, "Neighbour"),
     "rules": (None, "Rules & safety"),
+    "flyer": (None, "Street flyer"),
     "profile": ("user", "Your profile"),
     "admin": ("admin", "Admin"),
 }
@@ -64,6 +65,9 @@ def _form(name):
     if name == "profile":
         from .Pages.Profile import Profile
         return Profile
+    if name == "flyer":
+        from .Pages.Flyer import Flyer
+        return Flyer
     from .Pages.Admin import Admin
     return Admin
 

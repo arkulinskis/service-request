@@ -138,16 +138,188 @@ def back_out(bounty_id, reason):
     reason = C.text(reason, 300)
     if len(reason) < 10:
         return C.fail("Tell the poster why (at least 10 characters).")
+    _reopen(b, me)
+    log(b, "helper", "%s backed out: %s The bounty is back on the board." % (C.public_name(me), reason))
+    ping(b, "poster")
+    Trust.bump(me, dropouts=1)
+    return C.ok()
+
+
+def _reopen(b, helper):
+    """Put a booked bounty back on the board: the helper's offer is withdrawn, the others are asked again."""
     b.update(helper=None, status="open", assigned_at=None, updated=C.now(), base=b["posted_base"] or b["base"])
-    o = app_tables.offers.get(bounty=b, helper=me)
+    o = app_tables.offers.get(bounty=b, helper=helper)
     if o is not None:
         o["status"] = "withdrawn"
     for other in app_tables.offers.search(bounty=b, status="declined"):
         other["status"] = "pending"
     b["offer_count"] = len(app_tables.offers.search(bounty=b, status="pending"))
-    log(b, "helper", "%s backed out: %s The bounty is back on the board." % (C.public_name(me), reason))
+    _set_col(b, "checkin", None)
+    _set_col(b, "deal_change", None)
+
+
+# ---------------------------------------------------------------------------------- job day + changing the deal
+# Two optional columns (added 2026-11-20). They are read and written through guards, so the live app keeps
+# working until the new schema is accepted in Anvil (then these features switch on by themselves).
+def col(b, name):
+    try:
+        return b[name]
+    except Exception:
+        return None
+
+
+def _set_col(b, name, value):
+    try:
+        b[name] = value
+        return True
+    except Exception:
+        return False
+
+
+NOT_READY = "This needs a small app update first (new database columns). Please try again later."
+CHECKIN_STEPS = {"otw": "is on the way", "here": "has arrived"}
+
+
+def no_show_open(b):
+    """May the poster say the helper didn't show? Only while booked, never after "I'm here", and only once the job
+    day has passed (no date: 24 h after booking)."""
+    if b["status"] != "assigned" or (col(b, "checkin") or {}).get("here"):
+        return False
+    if b["when_date"] is not None:
+        return b["when_date"] < C.now().date()
+    return b["assigned_at"] is not None and b["assigned_at"] < C.now() - dt.timedelta(hours=24)
+
+
+@anvil.server.callable(require_user=True)
+def check_in(bounty_id, step):
+    """The helper on a booked job: "On my way" (otw) or "I'm here" (here). The poster sees the times."""
+    me = C.require_user()
+    if step not in CHECKIN_STEPS:
+        return C.fail("Unknown step.")
+    b, err = _bounty_for(me, bounty_id, "helper", ("assigned",))
+    if err:
+        return err
+    ci = dict(col(b, "checkin") or {})
+    if ci.get(step):
+        return C.fail("Already done.")
+    now = C.iso(C.now())
+    ci[step] = now
+    if step == "here" and not ci.get("otw"):
+        ci["otw"] = now
+    if not _set_col(b, "checkin", ci):
+        return C.fail(NOT_READY)
+    log(b, "helper", "%s %s." % (C.public_name(me), CHECKIN_STEPS[step]))
     ping(b, "poster")
-    Trust.bump(me, dropouts=1)
+    return C.ok(checkin=ci)
+
+
+@anvil.server.callable(require_user=True)
+def release_no_show(bounty_id, note=""):
+    """The poster: the helper never came. The bounty goes back on the board; it counts as a drop-out and a no-show."""
+    me = C.require_user()
+    b, err = _bounty_for(me, bounty_id, "poster", ("assigned",))
+    if err:
+        return err
+    if not no_show_open(b):
+        if (col(b, "checkin") or {}).get("here"):
+            return C.fail("Your helper said they arrived. If something went wrong, use \"Something's wrong\" instead.")
+        return C.fail("You can do this once the job day has passed (or 24 h after booking when there's no date).")
+    helper = b["helper"]
+    note = C.text(note, 300)
+    _reopen(b, helper)
+    log(b, "poster", "Said %s didn't show up%s. The bounty is back on the board." % (C.public_name(helper), (": " + note) if note else ""))
+    Trust.bump(helper, dropouts=1, noshows=1)
+    return C.ok()
+
+
+@anvil.server.callable(require_user=True)
+def propose_change(bounty_id, base, add_items, reason):
+    """Either side of a booked job proposes a new deal: a new bounty and/or extra checklist items. The other accepts."""
+    me = C.require_user()
+    b = C.row_by_id(app_tables.bounties, bounty_id)
+    if b is None:
+        return C.fail("That bounty doesn't exist any more.")
+    who = Bounties.role(b, me)
+    if who not in ("poster", "helper"):
+        return C.fail("Only the poster and the helper on this job can change the deal.")
+    if b["status"] != "assigned":
+        return C.fail("The deal can only change while the job is booked (before the proof).")
+    if (col(b, "deal_change") or {}).get("by"):
+        return C.fail("There's already a proposal waiting for an answer.")
+    amounts, problem = Bounties._amounts(base, b["bonus"] or 0, b["bar"] or 80)
+    if problem:
+        if "quality bonus can't be more" in problem:
+            problem = "The new bounty can't be lower than the quality bonus (%s)." % C.money(b["bonus"] or 0)
+        return C.fail(problem)
+    new_base = amounts[0]
+    items = [C.text(x, 90) for x in (add_items if isinstance(add_items, list) else []) if C.text(x, 90)][:3]
+    have = len(list(b["checklist"] or []))
+    if have + len(items) > 8:
+        return C.fail("A checklist holds up to 8 items; this one has %d." % have)
+    if new_base == b["base"] and not items:
+        return C.fail("Change the amount or add a checklist item.")
+    reason = C.text(reason, 300)
+    if len(reason) < 10:
+        return C.fail("Say what changed (at least 10 characters).")
+    flags = Trust.scan(" ".join(items + [reason]))
+    if flags:
+        return C.fail("That can't be part of a bounty here (%s). See Rules & safety." % "; ".join(flags))
+    reason = Trust.redact(reason)[0]
+    items = [Trust.redact(x)[0] for x in items]
+    if C.rate_limited("propose_change", 6, 3600):
+        return C.fail("That's a lot of proposals. Talk it over in the chat first.")
+    change = {"by": who, "base": new_base, "old_base": b["base"], "add": items, "reason": reason, "at": C.iso(C.now())}
+    if not _set_col(b, "deal_change", change):
+        return C.fail(NOT_READY)
+    log(b, who, "Proposed a new deal: %s." % _deal_text(change))
+    ping(b, "helper" if who == "poster" else "poster")
+    return C.ok(change=change)
+
+
+def _deal_text(change):
+    parts = []
+    if change["base"] != change["old_base"]:
+        parts.append("%s (was %s)" % (C.money(change["base"]), C.money(change["old_base"])))
+    if change.get("add"):
+        parts.append("add " + ", ".join('"%s"' % x for x in change["add"]))
+    return " and ".join(parts)
+
+
+@anvil.server.callable(require_user=True)
+def answer_change(bounty_id, accept):
+    """The other side accepts or declines the proposal. Accepting changes the bounty and the checklist."""
+    me = C.require_user()
+    b = C.row_by_id(app_tables.bounties, bounty_id)
+    if b is None:
+        return C.fail("That bounty doesn't exist any more.")
+    who = Bounties.role(b, me)
+    change = col(b, "deal_change") or {}
+    if b["status"] != "assigned" or not change.get("by"):
+        return C.fail("There's no proposal waiting.")
+    if who not in ("poster", "helper") or who == change["by"]:
+        return C.fail("Only the other side can answer this proposal.")
+    if accept:
+        checklist = list(b["checklist"] or []) + list(change.get("add") or [])
+        b.update(base=int(change["base"]), checklist=checklist[:8], updated=C.now())
+        log(b, who, "Accepted the new deal: %s." % _deal_text(change))
+    else:
+        log(b, who, "Declined the new deal. It stays at %s." % C.money(b["base"]))
+    _set_col(b, "deal_change", None)
+    ping(b, change["by"])
+    return C.ok()
+
+
+@anvil.server.callable(require_user=True)
+def withdraw_change(bounty_id):
+    me = C.require_user()
+    b = C.row_by_id(app_tables.bounties, bounty_id)
+    if b is None:
+        return C.fail("That bounty doesn't exist any more.")
+    change = col(b, "deal_change") or {}
+    if not change.get("by") or Bounties.role(b, me) != change["by"]:
+        return C.fail("There's no proposal of yours waiting.")
+    _set_col(b, "deal_change", None)
+    log(b, change["by"], "Withdrew the proposed new deal.")
     return C.ok()
 
 
